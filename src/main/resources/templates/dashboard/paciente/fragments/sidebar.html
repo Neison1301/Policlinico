@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    </head>
+<body>
+    <aside class="sidebar" th:fragment="sidebar">
+        <div class="sidebar-header">
+            <img src="/images/logo.png" alt="Logo Ara Ara" class="logo">
+            <span class="app-name">Ara Ara</span>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item active">
+                    <a href="#" th:href="@{/inicio}">
+                        <img src="/icons/home.svg" alt="Inicio">
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" th:href="@{/mis-citas}">
+                        <img src="/icons/calendar.svg" alt="Mis citas">
+                        <span>Mis citas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" th:href="@{/mis-medicos}">
+                        <img src="/icons/doctor.svg" alt="Mis médicos">
+                        <span>Mis médicos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" th:href="@{/perfil}">
+                        <img src="/icons/profile.svg" alt="Perfil">
+                        <span>Perfil</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" th:href="@{/historial}">
+                        <img src="/icons/history.svg" alt="Historial">
+                        <span>Historial</span>
+                    </a>
+                </li>
+                <li class="nav-item logout">
+                    <a href="#" th:href="@{/logout}">
+                        <img src="/icons/logout.svg" alt="Cerrar Sesión">
+                        <span>Cerrar Sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-help">
+            <p>¿Necesitas Ayuda?</p>
+            <a href="#" th:href="@{/servicio-cliente}" class="btn-help">servicio al cliente</a>
+        </div>
+    </aside>
+</body>
+</html>

@@ -1,0 +1,113 @@
+.sidebar {
+    width: 250px; /* Ancho fijo del sidebar */
+    background-color: #ffffff;
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0 8px 8px 0; /* Bordes redondeados solo a la derecha */
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.sidebar-header .logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.sidebar-header .app-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+.sidebar-nav {
+    width: 100%;
+    flex-grow: 1; /* Para que la navegación ocupe el espacio disponible */
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li {
+    margin-bottom: 5px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #555;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 0 20px 20px 0; /* Bordes redondeados en los ítems del menú */
+}
+
+.sidebar-nav a img {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    filter: invert(40%); /* Ajustar color del icono si es necesario */
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav .nav-item.active a {
+    background-color: #e0f7fa; /* Color de fondo al pasar el mouse o activo */
+    color: #007bff; /* Color del texto al pasar el mouse o activo */
+}
+
+.sidebar-nav .nav-item.active a img {
+    filter: invert(20%) sepia(90%) saturate(7000%) hue-rotate(190deg) brightness(90%); /* Cambiar color del icono activo */
+}
+
+.sidebar-nav .nav-item.logout {
+    margin-top: auto; /* Empuja el botón de cerrar sesión hacia abajo */
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.sidebar-help {
+    width: calc(100% - 40px); /* Ajustar el ancho para el padding */
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 30px;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.sidebar-help p {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.sidebar-help .btn-help {
+    display: inline-block;
+    background-color: #fff;
+    color: #007bff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-help .btn-help:hover {
+    background-color: #f0f0f0;
+}
+
+/* Para los iconos del menú, necesitarías tener archivos SVG o PNG en la carpeta 'public/icons' */
+/* Por ejemplo: public/icons/home.svg, public/icons/calendar.svg, etc. */
+/* Asegúrate de ajustar las rutas de las imágenes en el HTML */
