@@ -1,5 +1,4 @@
 # 🏥 Sistema de Citas Médicas
-## Policlínico Infantil “Nuestra Señora del Sagrado Corazón”
 
 ![Logo](https://www.facebook.com/p/Policl%C3%ADnico-Infantil-Nuestra-Se%C3%B1ora-del-Sagrado-Coraz%C3%B3n-Oficial-100063538544907/?locale=es_LA) Un sistema completo para la gestión eficiente de citas médicas, diseñado para optimizar el flujo de trabajo en clínicas y consultorios. Facilita la interacción entre pacientes, recepcionistas y administradores para agendar, modificar y gestionar citas, así como para supervisar las operaciones del sistema.
 
