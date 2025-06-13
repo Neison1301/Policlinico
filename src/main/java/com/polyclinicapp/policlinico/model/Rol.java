@@ -1,7 +1,5 @@
 package com.polyclinicapp.policlinico.model;
 
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,9 +18,7 @@ public class Rol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ROL_ID")
-    private Long ROL_ID;
+    private Integer rolId;
 
-    @Column(name = "ROL_Nombre", nullable = false)
-    private String ROL_Nombre;
+    private String rolNombre;
 }

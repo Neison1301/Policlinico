@@ -1,5 +1,5 @@
 package com.polyclinicapp.policlinico.repository;
 
-public interface UserRepository {
+public class RepositorioNotificacion {
     
 }

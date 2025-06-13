@@ -25,7 +25,7 @@ public class PerfilUsuario {
     private Long PERF_ID;
 
     @OneToOne
-    @JoinColumn(name = "USU_ID", referencedColumnName = "USU_ID", nullable = false)
+    @JoinColumn(name = "usu_id", referencedColumnName = "usu_id", nullable = false)
     private UsuarioSistema usuarioSistema;
 
     @Column(name = "PERF_TipoPerfil")

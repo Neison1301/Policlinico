@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar</title>
+    <style>
+        /* Estilos generales para el sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #f7f7f7;
+            height: 100vh;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        .sidebar-header .logo {
+            width: 40px; /* Ajusta el tamaño del logo */
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .sidebar-header .app-name {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #555;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background-color: #e0e0e0;
+            color: #007bff; /* Color de resaltado */
+        }
+
+        .sidebar-nav a i {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .sidebar-footer {
+            width: 100%;
+            padding: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .help-section {
+            background-color: #007bff; /* Azul del diseño */
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            width: 90%;
+            color: white; /* Texto blanco */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative; /* Para la forma de onda */
+            overflow: hidden;
+        }
+
+        .help-section::before { /* Onda de fondo */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
+            clip-path: ellipse(60% 30% at 50% 100%); /* Forma de onda */
+            transform: translateY(30%);
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .help-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .help-section i {
+            font-size: 2em; /* Ícono más grande */
+            color: white;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .help-section span {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .customer-service-btn {
+            background-color: white; /* Botón blanco */
+            color: #007bff; /* Texto azul */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px; /* Bordes más redondeados */
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .customer-service-btn:hover {
+            background-color: #f0f0f0;
+            color: #0056b3;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #555;
+            cursor: pointer;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            width: 100%;
+            transition: color 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            color: #dc3545; /* Rojo para cerrar sesión */
+        }
+
+        .logout-btn i {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+
+        /* Íconos (usando emojis o Font Awesome si lo tienes) */
+        .icon-stethoscope::before { content: '🩺'; } /* Para el logo de Ara Ara */
+        .icon-home::before { content: '🏠'; }
+        .icon-calendar::before { content: '📅'; }
+        .icon-user-doctor::before { content: '👨‍⚕️'; } /* Médico */
+        .icon-clock::before { content: '⏱️'; } /* Perfil/Historial - reloj */
+        .icon-file-alt::before { content: '📄'; } /* Historial - archivo */
+        .icon-sign-out-alt::before { content: '🚪'; } /* Cerrar Sesión */
+        .icon-question-circle::before { content: '❓'; } /* Necesitas ayuda */
+        .icon-users::before { content: '👥'; } /* Gestión de Pacientes/Usuarios */
+        .icon-user-cog::before { content: '⚙️'; } /* Gestión de Personal/Administración */
+        .icon-chart-bar::before { content: '📊'; } /* Informes/Estadísticas */
+    </style>
+</head>
+<body>
+    <div class="sidebar" th:fragment="sidebar">
+        <div class="sidebar-header">
+            <i class="icon-stethoscope logo"></i> <span class="app-name">Ara Ara</span>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="#" class="active"><i class="icon-home"></i> Inicio</a></li>
+
+            <li sec:authorize="hasRole('PATIENT')"><a href="#"><i class="icon-calendar"></i> Mis citas</a></li>
+            <li sec:authorize="hasRole('PATIENT')"><a href="#"><i class="icon-user-doctor"></i> Mis Médicos</a></li>
+
+            <li sec:authorize="hasRole('RECEPCIONIST')"><a href="#"><i class="icon-calendar"></i> Citas</a></li>
+            <li sec:authorize="hasRole('RECEPCIONIST')"><a href="#"><i class="icon-users"></i> Pacientes</a></li>
+            <li sec:authorize="hasRole('RECEPCIONIST')"><a href="#"><i class="icon-user-doctor"></i> Médicos</a></li>
+
+            <li sec:authorize="hasRole('ADMIN')"><a href="#"><i class="icon-users"></i> Gestión de Pacientes</a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="#"><i class="icon-user-doctor"></i> Gestión de Médicos</a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="#"><i class="icon-user-cog"></i> Gestión de Personal</a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="#"><i class="icon-cog"></i> Administración del Sistema</a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="#"><i class="icon-chart-bar"></i> Informes y Estadísticas</a></li>
+
+            <li><a href="#"><i class="icon-clock"></i> Perfil</a></li>
+            <li><a href="#"><i class="icon-file-alt"></i> Historial</a></li>
+            <li>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="logout-btn"><i class="icon-sign-out-alt"></i> Cerrar Sesión</button>
+                </form>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <div class="help-section">
+                <i class="icon-question-circle"></i>
+                <span>¿Necesitas Ayuda?</span>
+                <button class="customer-service-btn" sec:authorize="hasRole('PATIENT')">servicio al cliente</button>
+                <button class="customer-service-btn" sec:authorize="hasAnyRole('RECEPCIONIST', 'ADMIN')">Soporte Técnico</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

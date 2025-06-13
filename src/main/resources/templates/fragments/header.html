@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+    <style>
+        /* Estilos generales para el header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            left: 250px; /* Para que empiece después del sidebar fijo */
+            width: calc(100% - 250px);
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .header-left {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon-badge {
+            position: relative;
+            font-size: 1.5em;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .icon-badge .badge {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background-color: #dc3545; /* Rojo de notificación */
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7em;
+            line-height: 1;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .welcome-card {
+            background-color: #e0f2f7; /* Azul claro */
+            border-radius: 10px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .welcome-card .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #007bff;
+        }
+
+        .welcome-card .user-info {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .welcome-card .user-info span:first-child {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .welcome-card .username {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .welcome-card .welcome-message {
+            font-size: 0.8em;
+            color: #555;
+        }
+
+        .welcome-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .welcome-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Íconos (usando emojis o Font Awesome) */
+        .icon-envelope::before { content: '✉️'; } /* Correo */
+        .icon-bell::before { content: '🔔'; } /* Campana */
+    </style>
+</head>
+<body>
+    <div class="header" th:fragment="header">
+        <div class="header-left">
+            <span class="icon-badge"><i class="icon-envelope"></i><span class="badge">3</span></span>
+            <span class="icon-badge"><i class="icon-bell"></i><span class="badge">5</span></span>
+        </div>
+        <div class="header-right">
+            <div class="welcome-card">
+                <img th:src="@{/images/user-avatar.png}" alt="User Avatar" class="user-avatar">
+                <div class="user-info">
+                    <span>Bienvenido</span>
+                    <span class="username" sec:authentication="name"></span> <span class="welcome-message">Estamos aquí para cuidarte</span>
+                </div>
+                <button class="welcome-button">WELCOME</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,7 +1,5 @@
 package com.polyclinicapp.policlinico.model;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,19 +18,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioSistema {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USU_ID")
-    private Long USU_ID;
+    @Column(name = "usu_id")
+    private Long usuId;
 
-    @Column(name = "USU_Usuario", nullable = false, unique = true)
-    private String USU_Usuario;
+    @Column(name = "usu_usuario", nullable = false, unique = true)
+    private String usuUsuario;
 
-    @Column(name = "USU_Contrasena", nullable = false)
-    private String USU_Contrasena;
+    @Column(name = "usu_contrasena", nullable = false)
+    private String usuContrasena;
 
     @ManyToOne
-    @JoinColumn(name = "ROL_ID", nullable = false)
+    @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
 }

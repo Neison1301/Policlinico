@@ -205,75 +205,82 @@
         </section>
       </main>
 
-     <div
-  class="modal fade"
-  id="modalIniciarSesion"
-  tabindex="-1"
-  aria-labelledby="modalIniciarSesionLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalIniciarSesionLabel">
-          Inicia sesión en tu cuenta
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form th:action="@{/login}" method="post" id="loginForm">
-          <div id="loginMessage" class="alert d-none" role="alert"></div>
+      <div
+        class="modal fade"
+        id="modalIniciarSesion"
+        tabindex="-1"
+        aria-labelledby="modalIniciarSesionLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalIniciarSesionLabel">
+                Inicia sesión en tu cuenta
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <!-- Dentro de tu modal de login en index.html -->
+              <form th:action="@{/perform_login}" method="post" id="loginForm">
+                <div id="loginMessage" class="alert d-none" role="alert"></div>
 
-          <div>
-            <label for="dni">Ingrese su DNI</label>
-            <input type="text" class="form-control" id="dni" name="username" />
-          </div>
-          <div class="mt-3">
-            <label for="contrasena">Contraseña</label>
-            <div class="d-flex justify-content-between">
-              <input
-                type="password"
-                class="form-control"
-                id="contrasena"
-                name="password"
-                placeholder="*********"
-              />
-              <button type="button" class="btn btn-link btn-sm">
-                ¿Olvidaste tu contraseña?
+                <div>
+                  <label for="dni">Ingrese su DNI</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="dni"
+                    name="username"
+                  />
+                  <!-- El 'name' debe ser 'username' -->
+                </div>
+                <div class="mt-3">
+                  <label for="contrasena">Contraseña</label>
+                  <div class="d-flex justify-content-between">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="contrasena"
+                      name="password"
+                      placeholder="*********"
+                    />
+                    <button type="button" class="btn btn-link btn-sm">
+                      ¿Olvidaste tu contraseña?
+                    </button>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-3">
+                  INICIAR SESIÓN
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-arrow-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.146-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5a.5.5 0 0 1-.5-.5z"
+                    />
+                  </svg>
+                </button>
+              </form>
+              <hr class="my-3" />
+              <p class="text-center">¿No tienes cuenta?</p>
+              <button type="button" class="btn btn-outline-secondary w-100">
+                CREAR CUENTA
               </button>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary w-100 mt-3">
-            INICIAR SESIÓN
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-arrow-right"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.146-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5a.5.5 0 0 1-.5-.5z"
-              />
-            </svg>
-          </button>
-        </form>
-        <hr class="my-3" />
-        <p class="text-center">¿No tienes cuenta?</p>
-        <button type="button" class="btn btn-outline-secondary w-100">
-          CREAR CUENTA
-        </button>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
       <footer class="pie-pagina">
         <div class="contenedor-pie">
