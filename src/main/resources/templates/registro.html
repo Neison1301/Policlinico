@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Registro - Policlínico Infantil Nuestra Señora del Sagrado Corazón
+    </title>
+    <link rel="stylesheet" th:href="@{/css/registro.css}" />
+  </head>
+  <body>
+    <div class="left-panel">
+      <div class="left-content">
+        <div class="logo-section">
+          <img
+            th:src="@{/image/LogoEmpresa.png}"
+            alt="Logo Policlínico"
+            class="policlinico-logo"
+          />
+          <h1>Nuestra Señora del Sagrado Corazón</h1>
+        </div>
+        <div class="girl-image-container">
+          <img
+            th:src="@{/image/Login-Container-s-fondo.png}"
+            alt="Niña sosteniendo tarjeta"
+            class="girl-image"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <div class="right-panel">
+        <div class="back-link">
+      <!--error aca-->    <a class="back-arrow">← Atrás</a>
+        </div>
+
+        <div class="form-wrapper">
+          <div class="header">
+            <h3>Regístrate</h3>
+          </div>
+          <form
+            th:action="@{/registro}"
+            th:object="${registroForm}"
+            method="post"
+          >
+            <div class="form-group">
+              <label for="numeroDocumento">N° de documento</label>
+              <input
+                type="text"
+                id="numeroDocumento"
+                th:field="*{numeroDocumento}"
+                required
+              />
+              <div
+                th:if="${#fields.hasErrors('numeroDocumento')}"
+                th:errors="*{numeroDocumento}"
+                class="error-message"
+              ></div>
+            </div>
+
+            <div class="form-group">
+              <label for="nombres">Nombres</label>
+              <input type="text" id="nombres" th:field="*{nombres}" required />
+              <div
+                th:if="${#fields.hasErrors('nombres')}"
+                th:errors="*{nombres}"
+                class="error-message"
+              ></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="apellidoPaterno">Apellido paterno</label>
+                <input
+                  type="text"
+                  id="apellidoPaterno"
+                  th:field="*{apellidoPaterno}"
+                  required
+                />
+                <div
+                  th:if="${#fields.hasErrors('apellidoPaterno')}"
+                  th:errors="*{apellidoPaterno}"
+                  class="error-message"
+                ></div>
+              </div>
+              <div class="form-group">
+                <label for="apellidoMaterno">Apellido materno</label>
+                <input
+                  type="text"
+                  id="apellidoMaterno"
+                  th:field="*{apellidoMaterno}"
+                  required
+                />
+                <div
+                  th:if="${#fields.hasErrors('apellidoMaterno')}"
+                  th:errors="*{apellidoMaterno}"
+                  class="error-message"
+                ></div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fechaNacimiento">Fecha de nacimiento</label>
+                <input
+                  type="date"
+                  id="fechaNacimiento"
+                  th:field="*{fechaNacimiento}"
+                  required
+                />
+                <div
+                  th:if="${#fields.hasErrors('fechaNacimiento')}"
+                  th:errors="*{fechaNacimiento}"
+                  class="error-message"
+                ></div>
+              </div>
+              <div class="form-group">
+                <label for="sexo">Sexo</label>
+                <select id="sexo" th:field="*{sexo}" required>
+                  <option value="">Selecciona</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
+                  <option value="Otro">Otro</option>
+                </select>
+                <div
+                  th:if="${#fields.hasErrors('sexo')}"
+                  th:errors="*{sexo}"
+                  class="error-message"
+                ></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="correoElectronico">Correo electrónico</label>
+              <input
+                type="email"
+                id="correoElectronico"
+                th:field="*{correoElectronico}"
+                required
+              />
+              <div
+                th:if="${#fields.hasErrors('correoElectronico')}"
+                th:errors="*{correoElectronico}"
+                class="error-message"
+              ></div>
+            </div>
+
+            <div class="form-group">
+              <label for="celular">Celular</label>
+              <input type="tel" id="celular" th:field="*{celular}" required />
+              <div
+                th:if="${#fields.hasErrors('celular')}"
+                th:errors="*{celular}"
+                class="error-message"
+              ></div>
+            </div>
+
+            <h4 class="section-title">Crea tu contraseña</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contrasena">Crea una contraseña</label>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    id="contrasena"
+                    th:field="*{contrasena}"
+                    required
+                  />
+                  <span
+                    class="toggle-password"
+                    onclick="togglePasswordVisibility('contrasena')"
+                  >
+                    <img
+                      src="https://img.icons8.com/material-outlined/24/000000/visible--v1.png"
+                      alt="Mostrar"
+                      id="icon-contrasena"
+                    />
+                  </span>
+                </div>
+                <div
+                  th:if="${#fields.hasErrors('contrasena')}"
+                  th:errors="*{contrasena}"
+                  class="error-message"
+                ></div>
+              </div>
+              <div class="form-group">
+                <label for="confirmarContrasena">Confirma tu contraseña</label>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    id="confirmarContrasena"
+                    th:field="*{confirmarContrasena}"
+                    required
+                  />
+                  <span
+                    class="toggle-password"
+                    onclick="togglePasswordVisibility('confirmarContrasena')"
+                  >
+                    <img
+                      src="https://img.icons8.com/material-outlined/24/000000/visible--v1.png"
+                      alt="Mostrar"
+                      id="icon-confirmarContrasena"
+                    />
+                  </span>
+                </div>
+                <div
+                  th:if="${#fields.hasErrors('confirmarContrasena')}"
+                  th:errors="*{confirmarContrasena}"
+                  class="error-message"
+                ></div>
+              </div>
+            </div>
+
+            <div class="form-group form-check">
+              <input
+                type="checkbox"
+                id="aceptaTerminos"
+                th:field="*{aceptaTerminos}"
+                required
+              />
+              <label for="aceptaTerminos"
+                >Acepto los <a href="#">términos y condiciones</a></label
+              >
+              <div
+                th:if="${#fields.hasErrors('aceptaTerminos')}"
+                th:errors="*{aceptaTerminos}"
+                class="error-message"
+              ></div>
+            </div>
+
+            <button type="submit" class="submit-button">Continuar</button>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function togglePasswordVisibility(id) {
+        const passwordField = document.getElementById(id);
+        const icon = document.getElementById("icon-" + id);
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          icon.src =
+            "https://img.icons8.com/material-outlined/24/000000/invisible.png"; // Icono de ojo tachado
+          icon.alt = "Ocultar";
+        } else {
+          passwordField.type = "password";
+          icon.src =
+            "https://img.icons8.com/material-outlined/24/000000/visible--v1.png"; // Icono de ojo
+          icon.alt = "Mostrar";
+        }
+      }
+    </script>
+  </body>
+</html>

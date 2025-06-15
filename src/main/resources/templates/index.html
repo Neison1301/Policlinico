@@ -27,9 +27,9 @@
         <nav class="navegacion-principal">
           <ul>
             <li><a th:href="@{/}">Inicio</a></li>
-            <li><a th:href="@{/especialidades}">Especialidades</a></li>
-            <li><a th:href="@{/staff-medico}">Staff Médico</a></li>
-            <li><a th:href="@{/contacto}">Contacto</a></li>
+            <li><a th:href="@{/}">Especialidades</a></li>
+            <li><a th:href="@{/}">Staff Médico</a></li>
+            <li><a th:href="@{/}">Contacto</a></li>
           </ul>
         </nav>
         <div class="acciones-encabezado">
@@ -227,7 +227,7 @@
             </div>
             <div class="modal-body">
               <!-- Dentro de tu modal de login en index.html -->
-              <form th:action="@{/perform_login}" method="post" id="loginForm">
+              <form th:action="@{/login}" method="post" id="loginForm">
                 <div id="loginMessage" class="alert d-none" role="alert"></div>
 
                 <div>
@@ -272,11 +272,22 @@
                   </svg>
                 </button>
               </form>
-              <hr class="my-3" />
-              <p class="text-center">¿No tienes cuenta?</p>
-              <button type="button" class="btn btn-outline-secondary w-100">
-                CREAR CUENTA
-              </button>
+
+
+
+              <div class="mt-3">
+                <p class="text-center">
+                  ¿No tienes cuenta?
+                  <a th:href="@{/registro.html}">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary w-100"
+                    >
+                      CREAR CUENTA
+                    </button>
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
