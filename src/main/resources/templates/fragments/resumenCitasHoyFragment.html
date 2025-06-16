@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fragmento Resumen de Citas para Hoy</title>
+</head>
+<body>
+
+    <div th:fragment="resumenCitasHoy(totalCitas, confirmadas, pendientes)" class="resumen-citas-card">
+        <div class="icon-container">
+            <img th:src="@{/images/medkit-icon.png}" alt="Icono de Botiquín" class="icon-medkit"/>
+        </div>
+        <div class="details-container">
+            <h3>Resumen de Citas para Hoy</h3>
+            <p>Total Citas: <span th:text="${totalCitas}">[Número]</span></p>
+            <p>Confirmadas: <span class="confirmadas" th:text="${confirmadas}">[7]</span></p>
+            <p>Pendientes: <span th:text="${pendientes}">[6]</span></p>
+            <div class="buttons-container">
+                <button class="button-cancel">
+                    <img th:src="@{/images/cancel-icon.png}" alt="Cancelar"/>
+                </button>
+                <button class="button-calendar">Ver calendario</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

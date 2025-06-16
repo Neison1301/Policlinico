@@ -51,4 +51,6 @@ public class Cita {
 
     @OneToOne(mappedBy = "cita")
     private Notificacion notificacion;
+
+  
 }

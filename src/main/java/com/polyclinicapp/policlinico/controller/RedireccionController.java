@@ -3,11 +3,21 @@ package com.polyclinicapp.policlinico.controller;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import jakarta.servlet.http.HttpServletRequest;
 
-@Controller 
+import com.polyclinicapp.policlinico.service.interfaces.IServicioUsuarioSistema;
+
+@Controller
 public class RedireccionController {
 
-    /** Redirecciona al dashboard según el rol del usuario tras el login. */
+    private final IServicioUsuarioSistema usuarioSistemaService;
+
+    public RedireccionController(IServicioUsuarioSistema usuarioSistemaService) {
+        this.usuarioSistemaService = usuarioSistemaService;
+    }
+
+    /** Redirecciona al dashboard según el rol del usuario tras el login exitoso. */
     @GetMapping("/redireccion")
     public String redireccionPorRol(Authentication auth) {
         String rol = auth.getAuthorities().iterator().next().getAuthority();
@@ -26,55 +36,42 @@ public class RedireccionController {
 
     /** Muestra el dashboard del administrador. */
     @GetMapping("/admin/dashboard")
-    public String dashboardAdmin() {
-        return "dashboard/admin";
+    public String dashboardAdmin(Authentication auth, Model model, HttpServletRequest request) {
+        String username = auth.getName();
+        usuarioSistemaService.findByUsuUsuario(username).ifPresent(usuarioSistema -> {
+            String tipoPerfil = usuarioSistema.getRolNombre();
+            model.addAttribute("tipoPerfil", tipoPerfil);
+        });
+        model.addAttribute("currentUri", request.getRequestURI());
+        return "dashboard/admin/gestionPaciente"; // Esto es correcto según tu estructura
     }
 
-    /** Muestra el inicio del paciente. */
+    /** Muestra la página de inicio del paciente. */
     @GetMapping("/paciente/inicio")
-    public String inicioPaciente() {
-        return "dashboard/paciente";
+    public String inicioPaciente(Authentication auth, Model model, HttpServletRequest request) {
+        String username = auth.getName();
+        usuarioSistemaService.findByUsuUsuario(username).ifPresent(usuarioSistema -> {
+            String tipoPerfil = usuarioSistema.getRolNombre();
+            model.addAttribute("tipoPerfil", tipoPerfil);
+        });
+        model.addAttribute("currentUri", request.getRequestURI());
+        // ¡CAMBIO AQUÍ! Apunta al archivo inicio.html dentro de la carpeta 'paciente'
+        
+        return "dashboard/paciente/inicio"; //
     }
 
-    /** Muestra el inicio del recepcionista. */
+    /** Muestra la página de inicio del recepcionista. */
     @GetMapping("/recepcionista/inicio")
-    public String inicioRecepcionista() {
-        return "dashboard/recepcionista";
+    public String inicioRecepcionista(Authentication auth, Model model, HttpServletRequest request) {
+        String username = auth.getName();
+        usuarioSistemaService.findByUsuUsuario(username).ifPresent(usuarioSistema -> {
+            String tipoPerfil = usuarioSistema.getRolNombre();
+            model.addAttribute("tipoPerfil", tipoPerfil);
+        });
+        model.addAttribute("currentUri", request.getRequestURI());
+        // ¡CAMBIO AQUÍ! Apunta al archivo inicio.html dentro de la carpeta 'recepcionista'
+        return "dashboard/recepcionista/inicio"; //
     }
 
-    /** Muestra la página de inicio. */
-    @GetMapping("/")
-    public String home() {
-        return "index";
-    }
-
-    /** Muestra la página de especialidades. */
-    @GetMapping("/especialidades")
-    public String especialidades() {
-        return "especialidades"; 
-    }
-
-    /** Muestra la página del staff médico. */
-    @GetMapping("/staff-medico")
-    public String staffMedico() {
-        return "staff-medico";
-    }
-
-    /** Muestra la página de contacto. */
-    @GetMapping("/contacto")
-    public String contacto() {
-        return "contacto";
-    }
-
-    /** Muestra la página de login. */
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    /** Muestra la página de registro de nuevos usuarios. */
-    @GetMapping("/registro")
-    public String registro() {
-        return "registro";
-    }
+    // ... (el resto de tus métodos GetMapping) ...
 }

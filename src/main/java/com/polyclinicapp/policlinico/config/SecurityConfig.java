@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,7 @@ public class SecurityConfig {
         this.repositorioUsuario = repositorioUsuario;
     }
 
+    @SuppressWarnings("deprecation")
     @Bean
     // Configuro la cadena de filtros de seguridad HTTP
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -46,8 +48,13 @@ public class SecurityConfig {
                         .failureUrl("/?error") // A dónde voy si el login falla
                         .permitAll())
                 .logout(logout -> logout
-                        .logoutUrl("/logout") // URL para cerrar sesión
-                        .logoutSuccessUrl("/?logout") // A dónde voy después de cerrar sesión
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // <--- URL a la que se enviará la
+                                                                                    // solicitud de logout
+                        .logoutSuccessUrl("/login?logout") // <--- URL a la que se redirige después de cerrar sesión
+                                                           // exitosamente
+                        .invalidateHttpSession(true) // Invalida la sesión HTTP
+                        .deleteCookies("JSESSIONID") // Borra la cookie de sesión (puede variar según el nombre de la
+                                                     // cookie)
                         .permitAll());
 
         return http.build(); // Construyo la configuración de seguridad

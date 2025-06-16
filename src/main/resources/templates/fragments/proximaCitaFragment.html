@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fragmento Próxima Cita</title>
+</head>
+<body>
+
+    <div th:fragment="proximaCita(cita)" class="proxima-cita-card">
+        <div class="icon-container">
+            <img th:src="@{/images/medkit-icon.png}" alt="Icono de Botiquín" class="icon-medkit"/>
+        </div>
+        <div class="details-container">
+            <h3>Próxima Cita</h3>
+            <div th:if="${cita != null}">
+                <p>
+                    <span th:text="${#dates.format(cita.fecha, 'EEEE, dd ''de'' MMMM')}"></span>,
+                    a las <span th:text="${#temporals.format(cita.hora, 'hh:mm a')}"></span>
+                </p>
+                <p>
+                    <span class="doctor-name" th:text="${cita.medico.nombreCompleto}"></span>
+                </p>
+                <p th:if="${!#lists.isEmpty(cita.medico.especialidades)}">
+                    Especialidad: <span th:text="${cita.medico.especialidades[0].nombre}"></span>
+                    </p>
+                <div class="buttons-container">
+                    <button class="button-cancel">
+                        <img th:src="@{/images/cancel-icon.png}" alt="Cancelar"/>
+                    </button>
+                    <button class="button-details">Ver detalles</button>
+                    <button class="button-reschedule">Reprogramar</button>
+                </div>
+            </div>
+            <div th:if="${cita == null}" class="no-cita-message">
+                <p>No tienes una próxima cita agendada.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
