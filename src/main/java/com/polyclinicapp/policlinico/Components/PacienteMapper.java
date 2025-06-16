@@ -4,15 +4,15 @@ import com.polyclinicapp.policlinico.model.Paciente;
 import com.polyclinicapp.policlinico.model.dto.RegistroPacienteDTO;
 import org.springframework.stereotype.Component;
 
-
-@Component // Indica a Spring que es un componente y puede ser inyectado
+@Component // Lo marco como componente de Spring para que lo detecte
 public class PacienteMapper {
 
     public Paciente toEntity(RegistroPacienteDTO dto) {
         if (dto == null) {
-            return null;
+            return null; // Si no hay DTO, no hay paciente que mapear
         }
         Paciente paciente = new Paciente();
+        // Mapeo los campos del DTO a la entidad Paciente
         paciente.setPacDni(dto.getNumeroDocumento());
         paciente.setPacNombres(dto.getNombres());
         paciente.setPacApellidoPaterno(dto.getApellidoPaterno());
@@ -23,7 +23,6 @@ public class PacienteMapper {
         paciente.setPacTelefono(dto.getCelular());
         paciente.setPacAceptaTerminos(dto.isAceptaTerminos());
         
-        
-        return paciente;
+        return paciente; // Devuelvo la entidad Paciente ya mapeada
     }
 }

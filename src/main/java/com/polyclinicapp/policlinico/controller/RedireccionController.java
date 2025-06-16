@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller 
 public class RedireccionController {
+
+    /** Redirecciona al dashboard según el rol del usuario tras el login. */
     @GetMapping("/redireccion")
     public String redireccionPorRol(Authentication auth) {
         String rol = auth.getAuthorities().iterator().next().getAuthority();
@@ -22,51 +24,57 @@ public class RedireccionController {
         }
     }
 
+    /** Muestra el dashboard del administrador. */
     @GetMapping("/admin/dashboard")
     public String dashboardAdmin() {
         return "dashboard/admin";
-
     }
 
+    /** Muestra el inicio del paciente. */
     @GetMapping("/paciente/inicio")
     public String inicioPaciente() {
         return "dashboard/paciente";
     }
 
+    /** Muestra el inicio del recepcionista. */
     @GetMapping("/recepcionista/inicio")
     public String inicioRecepcionista() {
         return "dashboard/recepcionista";
     }
 
-
-
-     @GetMapping("/")
+    /** Muestra la página de inicio. */
+    @GetMapping("/")
     public String home() {
-        return "index"; // Esto resuelve a src/main/resources/templates/index.html
+        return "index";
     }
 
+    /** Muestra la página de especialidades. */
     @GetMapping("/especialidades")
     public String especialidades() {
-        return "especialidades"; // Asegúrate de tener especialidades.html
+        return "especialidades"; 
     }
 
+    /** Muestra la página del staff médico. */
     @GetMapping("/staff-medico")
     public String staffMedico() {
-        return "staff-medico"; // Asegúrate de tener staff-medico.html
+        return "staff-medico";
     }
 
+    /** Muestra la página de contacto. */
     @GetMapping("/contacto")
     public String contacto() {
-        return "contacto"; // Asegúrate de tener contacto.html
+        return "contacto";
     }
 
+    /** Muestra la página de login. */
     @GetMapping("/login")
     public String login() {
-        return "login"; // Asegúrate de tener login.html
+        return "login";
     }
 
+    /** Muestra la página de registro de nuevos usuarios. */
     @GetMapping("/registro")
     public String registro() {
-        return "registro"; // Asegúrate de tener registro.html
+        return "registro";
     }
 }

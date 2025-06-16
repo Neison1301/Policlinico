@@ -11,67 +11,72 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.polyclinicapp.policlinico.repository.RepositorioUsuario;
-import com.polyclinicapp.policlinico.service.impl.UserDetailsServiceImpl; // Asegúrate que esta ruta es correcta
+import com.polyclinicapp.policlinico.service.impl.UserDetailsServiceImpl;
 
-@Configuration
-@EnableWebSecurity
+@Configuration // Indica que esta es una clase de configuración para Spring
+@EnableWebSecurity // Habilita la seguridad web de Spring Security
 public class SecurityConfig {
 
-    private final RepositorioUsuario repositorioUsuario; // Inyecta el repositorio aquí
+    private final RepositorioUsuario repositorioUsuario; // Necesito el repositorio para cargar usuarios
 
-    // Constructor para inyección de dependencias
+    // Inyecto el repositorio de usuarios
     public SecurityConfig(RepositorioUsuario repositorioUsuario) {
         this.repositorioUsuario = repositorioUsuario;
     }
 
     @Bean
+    // Configuro la cadena de filtros de seguridad HTTP
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        // Permite acceso público a la página de inicio, recursos estáticos y la URL de
-                        // login
-                        .requestMatchers("/", "/css/**", "/js/**", "/image/**", "/registro.html", "/registro", "/login**",
+                        // Permito el acceso a rutas públicas (inicio, estáticos, registro, login)
+                        .requestMatchers("/", "/css/**", "/js/**", "/image/**", "/registro.html", "/registro",
+                                "/login**",
                                 "/index.html")
-                        .permitAll()
-                        // Cualquier otra solicitud requiere autenticación
+
+                        .permitAll().requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/recepcionista/**").hasRole("RECEPCIONISTA")
+                        .requestMatchers("/paciente/**").hasRole("PACIENTE")
+                        // Cualquier otra ruta requiere autenticación
                         .anyRequest().authenticated())
                 .formLogin(form -> form
-                        .loginPage("/") // La URL de tu página de inicio donde está el formulario de login
-                        .loginProcessingUrl("/login") // La URL a la que el formulario POST de login envía los datos
-                        .defaultSuccessUrl("/redireccion", true) // Redirige aquí tras un login exitoso
-                        .failureUrl("/?error") // Redirige aquí tras un login fallido, con un parámetro de error
-                        .permitAll() // Permite el acceso a la página de login (la misma que loginPage)
-                )
+                        .loginPage("/") // Mi página de login es la raíz
+                        .loginProcessingUrl("/login") // URL donde se envía el formulario de login
+                        .defaultSuccessUrl("/redireccion", true) // A dónde voy si el login es exitoso
+                        .failureUrl("/?error") // A dónde voy si el login falla
+                        .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout") // URL para cerrar sesión
-                        .logoutSuccessUrl("/?logout") // Redirige tras cerrar sesión, con un parámetro de logout
+                        .logoutSuccessUrl("/?logout") // A dónde voy después de cerrar sesión
                         .permitAll());
 
-        return http.build();
+        return http.build(); // Construyo la configuración de seguridad
     }
 
     @Bean
+    // Defino el codificador de contraseñas (BCrypt)
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean // Este bean ahora usará la clase UserDetailsServiceImpl que creaste.
+    @Bean
+    // Configuro mi servicio para cargar los detalles del usuario
     public UserDetailsService userDetailsService() {
-        // Inyecta el repositorioUsuario en el constructor de tu UserDetailsServiceImpl
-        return new UserDetailsServiceImpl(repositorioUsuario);
+        return new UserDetailsServiceImpl(repositorioUsuario); // Uso mi implementación con el repositorio
     }
 
     @Bean
-    @SuppressWarnings("deprecation") // Se usa para suprimir la advertencia si DaoAuthenticationProvider es
-                                     // deprecated
+    @SuppressWarnings("deprecation") // A veces DaoAuthenticationProvider muestra una advertencia de deprecación
+    // Configuro el proveedor de autenticación basado en DAO
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService()); // Usa tu UserDetailsService
-        authProvider.setPasswordEncoder(passwordEncoder()); // Usa tu PasswordEncoder
+        authProvider.setUserDetailsService(userDetailsService()); // Le digo qué servicio usar
+        authProvider.setPasswordEncoder(passwordEncoder()); // Le digo qué codificador de contraseñas usar
         return authProvider;
     }
 
     @Bean
+    // Bean para realizar peticiones HTTP a APIs externas
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }

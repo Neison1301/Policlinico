@@ -1,6 +1,5 @@
 package com.polyclinicapp.policlinico.service.impl;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.polyclinicapp.policlinico.Components.PacienteMapper;
@@ -10,6 +9,7 @@ import com.polyclinicapp.policlinico.model.dto.RegistroPacienteDTO;
 import com.polyclinicapp.policlinico.repository.RepositorioPaciente;
 import com.polyclinicapp.policlinico.repository.RepositorioUsuario;
 import com.polyclinicapp.policlinico.service.interfaces.IServicioPaciente;
+import com.polyclinicapp.policlinico.service.interfaces.IServicioUsuarioSistema;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -20,23 +20,32 @@ public class ServicioPacienteImpl implements IServicioPaciente {
 
     private final RepositorioPaciente repositorioPaciente;
     private final RepositorioUsuario repositorioUsuario;
-    private final PasswordEncoder passwordEncoder;
-    private final PacienteMapper pacienteMapper;
+    private final IServicioUsuarioSistema usuarioSistemaService;
+     private final PacienteMapper pacienteMapper;
 
     @Override
     @Transactional
     public void registrarNuevoPaciente(RegistroPacienteDTO registroDTO) throws IllegalArgumentException {
         validarRegistroPaciente(registroDTO);
-
-        UsuarioSistema nuevoUsuarioSistema = new UsuarioSistema();
-        nuevoUsuarioSistema.setUsuUsuario(registroDTO.getNumeroDocumento());
-        nuevoUsuarioSistema.setUsuContrasena(passwordEncoder.encode(registroDTO.getContrasena()));
-        nuevoUsuarioSistema.setRolNombre("PACIENTE");
-        nuevoUsuarioSistema = repositorioUsuario.save(nuevoUsuarioSistema);
+        /*
+         * UsuarioSistema nuevoUsuarioSistema = new UsuarioSistema();
+         * nuevoUsuarioSistema.setUsuUsuario(registroDTO.getNumeroDocumento());
+         * nuevoUsuarioSistema.setUsuContrasena(passwordEncoder.encode(registroDTO.
+         * getContrasena()));
+         * nuevoUsuarioSistema.setRolNombre("PACIENTE");
+         * nuevoUsuarioSistema = repositorioUsuario.save(nuevoUsuarioSistema);
+         * 
+         * Paciente nuevoPaciente = pacienteMapper.toEntity(registroDTO);
+         * nuevoPaciente.setUsuarioSistema(nuevoUsuarioSistema);
+         */
+        UsuarioSistema nuevoUsuarioSistema = usuarioSistemaService.registerNewUser(
+                registroDTO.getNumeroDocumento(),
+                registroDTO.getContrasena(),
+                "PACIENTE",
+                "Paciente");
 
         Paciente nuevoPaciente = pacienteMapper.toEntity(registroDTO);
         nuevoPaciente.setUsuarioSistema(nuevoUsuarioSistema);
-
         repositorioPaciente.save(nuevoPaciente);
 
     }
