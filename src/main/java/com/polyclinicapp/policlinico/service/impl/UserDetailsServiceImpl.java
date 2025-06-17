@@ -10,8 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Collections;
 
+/*Implementación de UserDetailsService de Spring Security.
+Encargada de cargar los detalles de un usuario del sistema por su nombre de usuario (DNI) 
+para el proceso de autenticación de Spring Security.
+*/
 @Service // Esto es un servicio de Spring
-public class UserDetailsServiceImpl implements UserDetailsService { // Implemento la interfaz para cargar detalles de usuario
+public class UserDetailsServiceImpl implements UserDetailsService { // Implemento la interfaz para cargar detalles de
+                                                                    // usuario
 
     private final RepositorioUsuario repositorioUsuario; // Necesito el repositorio para buscar usuarios
 
@@ -23,7 +28,8 @@ public class UserDetailsServiceImpl implements UserDetailsService { // Implement
     @Override
     // Método clave: carga el usuario por su nombre de usuario (DNI)
     public UserDetails loadUserByUsername(String usuUsuario) throws UsernameNotFoundException {
-        // Busco el usuario en la base de datos por el DNI. Si no lo encuentro, lanzo excepción.
+        // Busco el usuario en la base de datos por el DNI. Si no lo encuentro, lanzo
+        // excepción.
         UsuarioSistema usuarioSistema = repositorioUsuario.findByUsuUsuario(usuUsuario)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con DNI: " + usuUsuario));
 
@@ -32,7 +38,6 @@ public class UserDetailsServiceImpl implements UserDetailsService { // Implement
                 usuarioSistema.getUsuUsuario(), // El DNI será el nombre de usuario
                 usuarioSistema.getUsuContrasena(), // La contraseña (ya encriptada)
                 // Asigno el rol, añadiendo "ROLE_" como Spring Security espera
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + usuarioSistema.getRolNombre()))
-        );
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + usuarioSistema.getRolNombre())));
     }
 }

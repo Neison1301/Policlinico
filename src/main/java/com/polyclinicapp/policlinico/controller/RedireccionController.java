@@ -8,18 +8,26 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import com.polyclinicapp.policlinico.service.interfaces.IServicioUsuarioSistema;
 
+/**
+ * Controlador que maneja las redirecciones de usuarios después de un login
+ * exitoso
+ * segun sus roles, y prepara los datos para los dashboards correspondientes.
+ * Es parte de la capa de cntrol en el MVC.
+ */
+// necesita optimizar
 @Controller
 public class RedireccionController {
 
-    private final IServicioUsuarioSistema usuarioSistemaService;
+    private final IServicioUsuarioSistema usuarioSistemaService; // Inyección de dependencia del servicio de usuarios.
 
     public RedireccionController(IServicioUsuarioSistema usuarioSistemaService) {
         this.usuarioSistemaService = usuarioSistemaService;
     }
 
-    /** Redirecciona al dashboard según el rol del usuario tras el login exitoso. */
     @GetMapping("/redireccion")
+
     public String redireccionPorRol(Authentication auth) {
+        // Obtiene e rol del usuario autenticado
         String rol = auth.getAuthorities().iterator().next().getAuthority();
 
         switch (rol) {
@@ -43,7 +51,7 @@ public class RedireccionController {
             model.addAttribute("tipoPerfil", tipoPerfil);
         });
         model.addAttribute("currentUri", request.getRequestURI());
-        return "dashboard/admin/gestionPaciente"; // Esto es correcto según tu estructura
+        return "dashboard/admin/gestionPaciente"; // Ruta a la plantilla HTML.
     }
 
     /** Muestra la página de inicio del paciente. */
@@ -56,7 +64,7 @@ public class RedireccionController {
         });
         model.addAttribute("currentUri", request.getRequestURI());
         // ¡CAMBIO AQUÍ! Apunta al archivo inicio.html dentro de la carpeta 'paciente'
-        
+
         return "dashboard/paciente/inicio"; //
     }
 
@@ -69,9 +77,8 @@ public class RedireccionController {
             model.addAttribute("tipoPerfil", tipoPerfil);
         });
         model.addAttribute("currentUri", request.getRequestURI());
-        // ¡CAMBIO AQUÍ! Apunta al archivo inicio.html dentro de la carpeta 'recepcionista'
+        // ¡CAMBIO AQUÍ! Apunta al archivo inicio.html dentro de la carpeta
+        // 'recepcionista'
         return "dashboard/recepcionista/inicio"; //
     }
-
-    // ... (el resto de tus métodos GetMapping) ...
 }

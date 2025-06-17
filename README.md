@@ -24,54 +24,6 @@ Implementar un **sistema digital de agendamiento de citas médicas** para optimi
 
 ---
 
-## 🌟 Funcionalidades Detalladas por Rol
-
-Basado en el diagrama de casos de uso, el sistema soporta las siguientes funcionalidades clave, categorizadas por actor:
-
-### 👤 Recepcionista
-* **Gestión de Asistencia:** Marcar asistencia de pacientes, registrar inasistencias o reprogramaciones.
-* **Gestión de Citas:**
-    * Ver citas del día (con filtros por fecha y especialidad).
-    * Agendar citas para pacientes (incluye verificar disponibilidad de horarios, ingresar datos del paciente).
-    * Modificar y cancelar citas (con confirmación).
-    * Ver citas pasadas y próximas.
-* **Gestión de Pagos:** Registrar y confirmar pagos.
-* **Control de Sesión:** Iniciar y cerrar sesión.
-
-### 👥 Paciente
-* **Registro y Perfil:** Registrarse en el sistema y actualizar datos personales.
-* **Agendamiento de Citas:**
-    * Agendar citas médicas (incluye ver disponibilidad de citas, seleccionar especialidad, ver detalles, confirmar datos personales, realizar pago y recibir confirmación).
-    * Ver citas (próximas y pasadas, con detalles).
-* **Control de Sesión:** Iniciar y cerrar sesión.
-
-### 👨‍💻 Administrador
-* **Gestión de Usuarios:** Crear, modificar y eliminar cuentas de usuario (incluye la creación de cuentas de recepcionistas y médicos).
-* **Gestión de Médicos:** Registrar, eliminar y actualizar datos de médicos.
-* **Configuración de Disponibilidad Médica:** Asignar horarios a médicos, modificar y eliminar disponibilidad.
-* **Control de Sesión:** Iniciar y cerrar sesión.
-
----
-
-## 🏛️ Arquitectura y Tecnologías
-
-El proyecto está diseñado siguiendo principios de arquitectura limpia y patrones de diseño para asegurar escalabilidad, mantenibilidad y robustez.
-
-### Patrones de Diseño y Principios
-* **MVC (Model-View-Controller):**
-    * El **Frontend** (React + Vite) actúa como la **Vista** y parte del **Controlador** (manejo de interacciones de usuario y llamadas a la API).
-    * El **Backend** (Java 21 + Spring Boot) implementa la lógica de **Modelo** (datos y lógica de negocio) y la otra parte del **Controlador** (manejo de las solicitudes HTTP, validación y orquestación con la capa de servicio).
-* **DAO (Data Access Object):**
-    * Se utiliza un patrón DAO en la capa `repository` del backend para abstraer y encapsular todas las operaciones de acceso a la base de datos (MySQL). Esto desacopla la lógica de negocio del acceso a datos.
-* **DTO (Data Transfer Object):**
-    * Se utilizan DTOs en la capa `dto` para transferir datos de forma eficiente entre capas del backend y con el frontend, optimizando la comunicación y la seguridad.
-* **Principios SOLID:**
-    * El código se ha desarrollado aplicando los principios SOLID (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion) para promover un diseño modular, flexible y fácil de extender y probar.
-* **TDD (Test-Driven Development):**
-    * El desarrollo ha seguido una metodología TDD, donde las pruebas unitarias y de integración se escriben antes que el código de producción, asegurando una alta cobertura de pruebas y reduciendo bugs.
-
----
-
 ### 💻 Tecnologías Utilizadas
 
 | Tecnología     | Rol                                |
@@ -79,12 +31,11 @@ El proyecto está diseñado siguiendo principios de arquitectura limpia y patron
 | **Java 21**    | Lógica de negocio (back-end)        |
 | **Spring Boot**| Framework backend y API REST        |
 | **MySQL**      | Base de datos relacional            |
-| **React + Vite**| Frontend moderno y veloz           |
-| **HTML/CSS/TS**| Maquetado y estilos responsivos     |
+| **HTML/CSS/JS**| Maquetado y estilos responsivos     |
 | **MVC**        | Arquitectura del sistema            |
-| **DAO/DTO**    | Patrón para gestión de datos        |
+| **DTO**    | Patrón para gestión de datos        |
 | **SOLID**      | Principios de diseño de software    |
-| **TDD**        | Desarrollo guiado por pruebas       |
+
 
 ---
 
@@ -103,31 +54,11 @@ La estructura del proyecto se organiza de la siguiente manera:
  ┃ ┗ 📂 config/     # Configuraciones de la aplicación (ej. seguridad, base de datos)
  ┗ application.properties # Archivo de propiedades para la configuración del backend
 
-📁 frontend/
- ┣ 📂 src/
- ┃ ┣ 📂 components/ # Componentes reutilizables de la interfaz de usuario
- ┃ ┣ 📂 pages/      # Páginas o vistas principales de la aplicación
- ┃ ┣ 📂 services/   # Clientes para consumir APIs del backend
- ┃ ┣ 📂 interfaces/ # Definiciones de tipos (TypeScript) para datos y respuestas de API
- ┃ ┗ App.tsx       # Componente principal de la aplicación React
- ┗ vite.config.ts  # Configuración del servidor de desarrollo y build de Vite
-
-```
 --
 
 # 🚀 Guía Completa de Configuración: Polyclinic-Appointment-App
 
 Esta guía te llevará paso a paso a través de todo el proceso para configurar y ejecutar el sistema de citas médicas "Polyclinic-Appointment-App" en tu máquina local, asumiendo que partes desde cero.
-
----
-
-## 🎯 ¿Qué es Polyclinic-Appointment-App?
-
-Es un sistema completo para la gestión eficiente de citas médicas, diseñado para optimizar el flujo de trabajo en clínicas y consultorios. Facilita la interacción entre pacientes, recepcionistas y administradores para agendar, modificar y gestionar citas, así como para supervisar las operaciones del sistema.
-
-### Tecnologías Clave:
-* **Backend:** Java 21, Spring Boot, MySQL
-* **Frontend:** React, Vite, HTML/CSS/TypeScript
 
 ---
 
@@ -151,12 +82,8 @@ Antes de clonar el proyecto, necesitas instalar todas las herramientas necesaria
     * **Configuración:** Sigue las instrucciones de instalación para configurar la variable de entorno `PATH`.
     * **Verificación:** Abre tu terminal/CMD y escribe `mvn --version`. Deberías ver la versión instalada.
 
-4.  **Node.js y npm:**
-    * Necesario para ejecutar el frontend de React. `npm` (Node Package Manager) se instala automáticamente con Node.js.
-    * **Descarga:** [https://nodejs.org/es/download/](https://nodejs.org/es/download/) (Se recomienda la versión LTS).
-    * **Verificación:** Abre tu terminal/CMD y escribe `node -v` y `npm -v`. Deberías ver las versiones instaladas.
 
-5.  **MySQL Server:**
+4.  **MySQL Server:**
     * La base de datos relacional que usará el backend.
     * **Descarga:** [MySQL Community Server](https://dev.mysql.com/downloads/mysql/) (incluye MySQL Workbench, una herramienta gráfica útil).
     * **Configuración:** Durante la instalación, establece un usuario `root` y una contraseña, o un usuario específico con permisos. **¡Asegúrate de recordar estas credenciales!**
@@ -208,10 +135,7 @@ El backend es la parte del sistema que maneja la lógica de negocio y la interac
     ```
 
 2.  **Configura la Base de Datos MySQL:**
-    * **Crea la Base de Datos:** Abre tu cliente MySQL (MySQL Workbench, o la terminal de MySQL) y ejecuta el siguiente comando SQL:
-        ```sql
-        CREATE DATABASE citas_medicas_db;
-        ```
+    
     * **Configura las Credenciales en el Backend:**
         * Abre el archivo `src/main/resources/application.properties` dentro de la carpeta `backend` con un editor de texto (VS Code, Sublime Text, Notepad++, etc.).
         * Modifica las siguientes líneas con el **usuario y contraseña de tu servidor MySQL** que configuraste en el paso 1.5:
@@ -248,54 +172,9 @@ El backend es la parte del sistema que maneja la lógica de negocio y la interac
 
 ---
 
-## 4. 🌐 Configuración del Frontend (React + Vite)
-
-El frontend es la interfaz de usuario con la que interactúan los usuarios.
-
-1.  **Abre una _NUEVA_ Terminal o Símbolo del Sistema / PowerShell.**
-    * **Importante:** No cierres la terminal del backend que está en ejecución.
-
-2.  **Navega a la carpeta del frontend:**
-    Desde la raíz de tu carpeta `Polyclinic-Appointment-App` (donde clonaste el proyecto), navega al subdirectorio `frontend`:
-
-    ```bash
-    cd ../frontend
-    ```
-    *(Si abriste la nueva terminal en la misma carpeta raíz del proyecto, solo necesitas `cd frontend`)*
-
-3.  **Instala las dependencias de Node.js:**
-
-    ```bash
-    npm install
-    # Si prefieres usar Yarn, puedes usar:
-    # yarn install
-    ```
-    Este comando descargará todas las librerías de JavaScript necesarias para el frontend. Esto puede tardar unos minutos la primera vez.
-
-4.  **Inicia la aplicación Frontend:**
-
-    ```bash
-    npm run dev
-    # Si usaste Yarn, puedes usar:
-    # yarn dev
-    ```
-    Esto iniciará el servidor de desarrollo de Vite para el frontend. Verás un mensaje similar a: `Local: http://localhost:5173/`.
-
----
-
-## 5. 🎉 ¡Explora la Aplicación!
-
-Una vez que ambos servidores (el backend en el puerto `8080` y el frontend en el puerto `5173`) estén ejecutándose, la aplicación web completa debería abrirse automáticamente en tu navegador o podrás acceder a ella manualmente:
-
-* **Abre tu navegador web y visita:** `http://localhost:5173/`
-
-Ahora tienes el sistema de citas médicas "Polyclinic-Appointment-App" funcionando en tu máquina.
-
----
 
 ## 💡 Próximos Pasos y Notas Adicionales:
 
-* **Primer Acceso:** Puede que necesites crear un administrador o un usuario de prueba directamente en la base de datos o a través de alguna API si el proyecto no tiene una ruta de registro inicial para administradores. Revisa el `README.md` original del proyecto si hay instrucciones para el primer acceso.
 * **Actualizar el Proyecto:** Si el proyecto en GitHub recibe actualizaciones, puedes descargar los últimos cambios desde la raíz de tu proyecto con:
     ```bash
     cd Polyclinic-Appointment-App
@@ -303,7 +182,7 @@ Ahora tienes el sistema de citas médicas "Polyclinic-Appointment-App" funcionan
     ```
     Después de `git pull`, es posible que necesites ejecutar `mvn clean install` en el `backend` y `npm install` (o `yarn install`) en el `frontend` nuevamente si hubo cambios en las dependencias.
 
-* **Problemas:** Si encuentras errores, revisa los mensajes en ambas terminales (backend y frontend) para pistas.
+* **Problemas:** Si encuentras errores, revisa los mensajes en ambas terminales (backend ) para pistas.
 
 ---
 

@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
-@Service // Marca esta clase como un componente de servicio de Spring
+/*Implementación de la interfaz IServicioUsuarioSistema 
+Contiene la lógica de negocio para la gestión de cuentas de usuario del sistema
+ * */
+@Service 
 public class ServicioUsuarioSistema implements IServicioUsuarioSistema {
 
     private final RepositorioUsuario usuarioSistemaRepository;
@@ -25,7 +28,6 @@ public class ServicioUsuarioSistema implements IServicioUsuarioSistema {
         this.usuarioSistemaRepository = usuarioSistemaRepository;
         this.perfilUsuarioRepository = perfilUsuarioRepository;
         this.passwordEncoder = passwordEncoder;
-        // Eliminamos las inyecciones de PatientRepository y ReceptionistRepository
     }
 
     @Override // Sobreescribe el método de la interfaz

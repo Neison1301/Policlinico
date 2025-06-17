@@ -13,6 +13,7 @@ import com.polyclinicapp.policlinico.model.UsuarioSistema;
 import com.polyclinicapp.policlinico.model.dto.RegistroPersonalDTO;
 import com.polyclinicapp.policlinico.service.interfaces.IServicioUsuarioSistema;
 
+//controlador para manejar las peticiones relacionadas con los usuarios del sistema, S 
 @RestController
 @RequestMapping("/usuarios") 
 public class UsuarioController {

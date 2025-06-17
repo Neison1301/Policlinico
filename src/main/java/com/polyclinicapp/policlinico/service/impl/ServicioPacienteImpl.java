@@ -14,6 +14,8 @@ import com.polyclinicapp.policlinico.service.interfaces.IServicioUsuarioSistema;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
+/*implementacion de la interfaz iserviiopaciente 
+contiene la logica de negocio para la gestion de paciente y usa S y D */
 @Service
 @AllArgsConstructor
 public class ServicioPacienteImpl implements IServicioPaciente {
@@ -21,23 +23,13 @@ public class ServicioPacienteImpl implements IServicioPaciente {
     private final RepositorioPaciente repositorioPaciente;
     private final RepositorioUsuario repositorioUsuario;
     private final IServicioUsuarioSistema usuarioSistemaService;
-     private final PacienteMapper pacienteMapper;
+    private final PacienteMapper pacienteMapper;
 
     @Override
     @Transactional
     public void registrarNuevoPaciente(RegistroPacienteDTO registroDTO) throws IllegalArgumentException {
         validarRegistroPaciente(registroDTO);
-        /*
-         * UsuarioSistema nuevoUsuarioSistema = new UsuarioSistema();
-         * nuevoUsuarioSistema.setUsuUsuario(registroDTO.getNumeroDocumento());
-         * nuevoUsuarioSistema.setUsuContrasena(passwordEncoder.encode(registroDTO.
-         * getContrasena()));
-         * nuevoUsuarioSistema.setRolNombre("PACIENTE");
-         * nuevoUsuarioSistema = repositorioUsuario.save(nuevoUsuarioSistema);
-         * 
-         * Paciente nuevoPaciente = pacienteMapper.toEntity(registroDTO);
-         * nuevoPaciente.setUsuarioSistema(nuevoUsuarioSistema);
-         */
+
         UsuarioSistema nuevoUsuarioSistema = usuarioSistemaService.registerNewUser(
                 registroDTO.getNumeroDocumento(),
                 registroDTO.getContrasena(),
@@ -50,6 +42,7 @@ public class ServicioPacienteImpl implements IServicioPaciente {
 
     }
 
+    // validaciones
     private void validarRegistroPaciente(RegistroPacienteDTO registroDTO) {
         if (!registroDTO.getContrasena().equals(registroDTO.getConfirmarContrasena())) {
             throw new IllegalArgumentException("Las contraseñas no coinciden.");

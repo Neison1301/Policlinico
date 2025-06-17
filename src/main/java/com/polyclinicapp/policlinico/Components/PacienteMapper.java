@@ -4,6 +4,7 @@ import com.polyclinicapp.policlinico.model.Paciente;
 import com.polyclinicapp.policlinico.model.dto.RegistroPacienteDTO;
 import org.springframework.stereotype.Component;
 
+/*transforma un registroPacienteDto a la entidad paciente su unica funcion es mapear objetos */ 
 @Component // Lo marco como componente de Spring para que lo detecte
 public class PacienteMapper {
 

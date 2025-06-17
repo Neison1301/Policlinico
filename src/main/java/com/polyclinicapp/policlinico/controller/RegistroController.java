@@ -1,41 +1,38 @@
 package com.polyclinicapp.policlinico.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model; // ¡Importante! Faltaba esta importación
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-// Importa la interfaz del servicio, no la implementación concreta
-import com.polyclinicapp.policlinico.service.interfaces.IServicioPaciente; // <-- Aquí está el cambio
-import com.polyclinicapp.policlinico.model.dto.RegistroPacienteDTO; // Asumo que este es el DTO correcto
+import com.polyclinicapp.policlinico.service.interfaces.IServicioPaciente;
+import com.polyclinicapp.policlinico.model.dto.RegistroPacienteDTO;
 
 import jakarta.validation.Valid;
 import java.util.Arrays;
 
+/*esta clase se encasrga de manejar el registro deusuaio usando el dto para la entrada de dtaos */
+
 @Controller
 public class RegistroController {
 
-    // Inyecta la interfaz, no la implementación
-    private final IServicioPaciente pacienteService;
+    private final IServicioPaciente pacienteService;// Inyección de la interfaz del servicio de pacientes.
+                                                    // Esto cumple con el S D;
 
-    // Constructor con inyección de dependencia
-    public RegistroController(IServicioPaciente pacienteService) { // Inyecta la interfaz
+    public RegistroController(IServicioPaciente pacienteService) { 
         this.pacienteService = pacienteService;
     }
 
     @GetMapping({ "/registro", "/registro.html" }) // Ahora responde a ambas rutas
     public String mostrarFormularioRegistro(Model model) {
-        // Siempre usa el mismo DTO para el formulario de registro
         if (!model.containsAttribute("registroForm")) {
             model.addAttribute("registroForm", new RegistroPacienteDTO());
         }
         model.addAttribute("sexos", Arrays.asList("Masculino", "Femenino", "Otro"));
         return "registro"; // Esto buscará src/main/resources/templates/registro.html
     }
-
 
     @PostMapping("/registro")
     public String procesarRegistro(@Valid @ModelAttribute("registroForm") RegistroPacienteDTO registroDTO, // Usa el DTO
@@ -57,7 +54,7 @@ public class RegistroController {
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMensaje", e.getMessage());
             model.addAttribute("sexos", Arrays.asList("Masculino", "Femenino", "Otro"));
-         
+
             return "registro";
         }
     }

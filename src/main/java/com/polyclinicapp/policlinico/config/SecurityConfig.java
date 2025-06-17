@@ -14,11 +14,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.polyclinicapp.policlinico.repository.RepositorioUsuario;
 import com.polyclinicapp.policlinico.service.impl.UserDetailsServiceImpl;
 
+/*esta clase maneja la seguridad de la app , osea autenticacion autorizacion y el tema de sesiones 
+ * nada mas 
+ */
+
 @Configuration // Indica que esta es una clase de configuración para Spring
 @EnableWebSecurity // Habilita la seguridad web de Spring Security
 public class SecurityConfig {
 
-    private final RepositorioUsuario repositorioUsuario; // Necesito el repositorio para cargar usuarios
+    private final RepositorioUsuario repositorioUsuario; // Necesito el repositorio para cargar usuarios y es  Dependencia del
+                                                         // repositorio de usuarios para UserDetailsService.
 
     // Inyecto el repositorio de usuarios
     public SecurityConfig(RepositorioUsuario repositorioUsuario) {
@@ -48,13 +53,12 @@ public class SecurityConfig {
                         .failureUrl("/?error") // A dónde voy si el login falla
                         .permitAll())
                 .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // <--- URL a la que se enviará la
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // URL a la que se enviará la
                                                                                     // solicitud de logout
-                        .logoutSuccessUrl("/login?logout") // <--- URL a la que se redirige después de cerrar sesión
+                        .logoutSuccessUrl("/login?logout") // URL a la que se redirige después de cerrar sesión
                                                            // exitosamente
                         .invalidateHttpSession(true) // Invalida la sesión HTTP
-                        .deleteCookies("JSESSIONID") // Borra la cookie de sesión (puede variar según el nombre de la
-                                                     // cookie)
+                        .deleteCookies("JSESSIONID") // Borra la cookie de sesión 
                         .permitAll());
 
         return http.build(); // Construyo la configuración de seguridad
