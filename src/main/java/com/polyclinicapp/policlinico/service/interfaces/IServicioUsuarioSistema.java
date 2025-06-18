@@ -1,5 +1,6 @@
 package com.polyclinicapp.policlinico.service.interfaces;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.polyclinicapp.policlinico.model.UsuarioSistema;
@@ -18,6 +19,6 @@ public interface IServicioUsuarioSistema {
     Optional<UsuarioSistema> findByUsuUsuario(String username);
 
     // Método para obtener todos los usuarios (útil para la gestión del admin).
-    Iterable<UsuarioSistema> findAllUsuarios();
+    List<UsuarioSistema> findAllUsuarios();
 
 }

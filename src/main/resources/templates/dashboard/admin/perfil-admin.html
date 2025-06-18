@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}" />
+    <link rel="stylesheet" href="/css/sidebar.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div
+        th:replace="~{fragments/sidebar :: sidebar (${tipoPerfil}, ${currentUri})}"
+      ></div>
+    </div>
+
+    <div th:fragment="content">
+      <h2>Bienvenido [ADMIN]</h2>
+      <p>Inicio > Perfil</p>
+
+      <div class="profile-card">
+        <div class="profile-header-info">
+          <img
+            th:src="@{/image/tyrone.jpg}"
+            alt="Foto de Perfil"
+            class="profile-picture"
+          />
+          <h3 th:text="${usuarioSistema.usuUsuario}">Nombre de Usuario</h3>
+          <p th:text="${perfilUsuario.PERF_TipoPerfil}"></p>
+        </div>
+        <div class="profile-details">
+          <h3>Datos de usuario</h3>
+          <div class="form-group">
+            <label>Nombre de Usuario (DNI)</label>
+            <input
+              type="text"
+              th:value="${usuarioSistema.usuUsuario}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label>Rol</label>
+            <input
+              type="text"
+              th:value="${usuarioSistema.rolNombre.replace('ROLE_', '')}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label>Tipo de Perfil</label>
+            <input
+              type="text"
+              th:value="${perfilUsuario.PERF_TipoPerfil}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" value="********" readonly />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

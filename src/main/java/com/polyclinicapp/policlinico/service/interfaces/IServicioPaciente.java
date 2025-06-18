@@ -1,5 +1,8 @@
 package com.polyclinicapp.policlinico.service.interfaces;
 
+import java.util.List;
+
+import com.polyclinicapp.policlinico.model.Paciente;
 import com.polyclinicapp.policlinico.model.dto.RegistroPacienteDTO;
 
 /**
@@ -11,5 +14,6 @@ import com.polyclinicapp.policlinico.model.dto.RegistroPacienteDTO;
  */
 public interface IServicioPaciente {
         void registrarNuevoPaciente(RegistroPacienteDTO registroDTO) throws IllegalArgumentException;
+        List<Paciente> findAllPacientes();
 
 }

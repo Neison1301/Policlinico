@@ -1,5 +1,7 @@
 package com.polyclinicapp.policlinico.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.polyclinicapp.policlinico.Components.PacienteMapper;
@@ -59,5 +61,10 @@ public class ServicioPacienteImpl implements IServicioPaciente {
         if (!registroDTO.isAceptaTerminos()) {
             throw new IllegalArgumentException("Debe aceptar los términos y condiciones para continuar.");
         }
+    }
+
+    @Override
+    public List<Paciente> findAllPacientes() {
+        return repositorioPaciente.findAll();
     }
 }

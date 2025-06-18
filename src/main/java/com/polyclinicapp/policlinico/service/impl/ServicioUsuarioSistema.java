@@ -9,6 +9,8 @@ import com.polyclinicapp.policlinico.model.PerfilUsuario;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 /*Implementación de la interfaz IServicioUsuarioSistema 
@@ -61,7 +63,7 @@ public class ServicioUsuarioSistema implements IServicioUsuarioSistema {
     }
 
     @Override // Sobreescribe el método de la interfaz
-    public Iterable<UsuarioSistema> findAllUsuarios() {
+    public List<UsuarioSistema> findAllUsuarios() {
         return usuarioSistemaRepository.findAll();
     }
 

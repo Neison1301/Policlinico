@@ -1,60 +1,48 @@
 # 🏥 Sistema de Citas Médicas
 
-![Logo](https://www.facebook.com/p/Policl%C3%ADnico-Infantil-Nuestra-Se%C3%B1ora-del-Sagrado-Coraz%C3%B3n-Oficial-100063538544907/?locale=es_LA) Un sistema completo para la gestión eficiente de citas médicas, diseñado para optimizar el flujo de trabajo en clínicas y consultorios. Facilita la interacción entre pacientes, recepcionistas y administradores para agendar, modificar y gestionar citas, así como para supervisar las operaciones del sistema.
+Sistema completo para la gestión eficiente de citas médicas, diseñado para optimizar el flujo de trabajo en clínicas y consultorios. Facilita la interacción entre pacientes, recepcionistas y administradores para agendar, modificar y gestionar citas, así como para supervisar las operaciones del sistema.
 
-### ✅ Objetivos del Proyecto
+---
 
-#### Objetivo General:
+## ✅ Objetivos del Proyecto
+
+### 🎯 Objetivo General
+
 Implementar un **sistema digital de agendamiento de citas médicas** para optimizar la atención y experiencia del paciente.
 
-#### Objetivos Específicos:
-* Plataforma web accesible desde cualquier dispositivo.
-* Gestión automática de horarios y disponibilidad.
-* Eficiencia en la administración de citas.
+### 🎯 Objetivos Específicos
+
+- Plataforma web accesible desde cualquier dispositivo.
+- Gestión automática de horarios y disponibilidad.
+- Eficiencia en la administración de citas.
 
 ---
 
-### 📦 Alcance del Proyecto
+## 📦 Alcance del Proyecto
 
-#### Alcances:
-* Gestión de citas médicas en línea.
-* Funcionalidades para pacientes, recepcionistas y administradores.
-* Plataforma 100% web responsive (adaptada a móviles y PC).
-* **[OPCIONAL]** Puedes agregar una sección de limitaciones aquí, si aplica. Por ejemplo: "Limitado a la gestión de citas y no incluye facturación compleja o historial clínico completo."
+### ✔️ Alcances
 
----
+- Gestión de citas médicas en línea.
+- Funcionalidades para pacientes, recepcionistas y administradores.
+- Plataforma 100% web responsive (adaptada a móviles y PC).
 
-### 💻 Tecnologías Utilizadas
-
-| Tecnología     | Rol                                |
-|----------------|-------------------------------------|
-| **Java 21**    | Lógica de negocio (back-end)        |
-| **Spring Boot**| Framework backend y API REST        |
-| **MySQL**      | Base de datos relacional            |
-| **HTML/CSS/JS**| Maquetado y estilos responsivos     |
-| **MVC**        | Arquitectura del sistema            |
-| **DTO**    | Patrón para gestión de datos        |
-| **SOLID**      | Principios de diseño de software    |
-
+> ℹ️ *Limitado a la gestión de citas. No incluye facturación ni historial clínico completo.*
 
 ---
 
-## 📂 Estructura del Proyecto
+## 💻 Tecnologías Utilizadas
 
-La estructura del proyecto se organiza de la siguiente manera:
+| Tecnología     | Rol                                     |
+|----------------|------------------------------------------|
+| **Java 21**    | Lógica de negocio (backend)              |
+| **Spring Boot**| Framework backend y API REST             |
+| **MySQL**      | Base de datos relacional                 |
+| **HTML/CSS/JS**| Maquetado y estilos responsivos          |
+| **MVC**        | Arquitectura del sistema                 |
+| **DTO**        | Patrón para la gestión de datos          |
+| **SOLID**      | Principios de diseño de software         |
 
-```plaintext
-📁 backend/
- ┣ 📂 src/
- ┃ ┣ 📂 controller/ # Controladores REST para manejar las solicitudes HTTP
- ┃ ┣ 📂 model/      # Entidades de datos y lógica de negocio (dominio)
- ┃ ┣ 📂 repository/ # Interfaces DAO para la interacción con la base de datos
- ┃ ┣ 📂 service/    # Lógica de negocio (maneja la orquestación entre controladores y repositorios)
- ┃ ┣ 📂 dto/        # Objetos de Transferencia de Datos (para comunicación entre capas/servicios)
- ┃ ┗ 📂 config/     # Configuraciones de la aplicación (ej. seguridad, base de datos)
- ┗ application.properties # Archivo de propiedades para la configuración del backend
-
---
+---
 
 # 🚀 Guía Completa de Configuración: Polyclinic-Appointment-App
 

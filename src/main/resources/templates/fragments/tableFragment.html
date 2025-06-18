@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fragmento de Tabla Dinámica</title>
+    <link rel="stylesheet" th:href="@{/css/table.css}" />
+  </head>
+  <body>
+    <div
+      th:fragment="dynamicTable(title, headers, rows, rowIdField, actions)"
+      class="main-content-section"
+    >
+      <div class="content-header">
+        <div>
+          <h2 th:text="'Total de ' + ${#strings.toLowerCase(title)}">
+            Total de pacientes
+          </h2>
+
+          <p>
+            Aquí encontrarás un listado de todos los
+            <span th:text="${title.toLowerCase()}">pacientes</span> registrados.
+          </p>
+        </div>
+
+        <div class="header-actions">
+          <button class="action-button">
+            <i class="fas fa-trash-alt"></i> Eliminar
+          </button>
+          <button class="action-button">
+            <i class="fas fa-filter"></i> Filtrar
+          </button>
+          <button class="action-button">
+            <i class="fas fa-file-export"></i> Exportar
+          </button>
+          <button class="add-button">
+            <i class="fas fa-plus"></i> Agregar <br />
+            <a th:href="@{/admin/perfil-admin}">Agregar</a>
+          </button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th th:each="header : ${headers}">
+                <span th:text="${header}">Encabezado</span>
+                <i class="fas fa-sort-down sort-icon"></i>
+              </th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="row, rowStat : ${rows}">
+              <td>
+                <span th:text="${rowStat.index + 1}">1</span>
+              </td>
+              <td th:each="field, fieldStat : ${row}">
+                <span
+                  th:if="${fieldStat.index == 5 and field == 'vivo'}"
+                  class="status-badge vivo"
+                  th:text="${field}"
+                ></span>
+                <span
+                  th:if="${fieldStat.index == 5 and field == 'Frio'}"
+                  class="status-badge frio"
+                  th:text="${field}"
+                ></span>
+                <span
+                  th:unless="${fieldStat.index == 5 and (field == 'vivo' or field == 'Frio')}"
+                  th:text="${field}"
+                ></span>
+              </td>
+              <td class="table-actions">
+                <button
+                  th:if="${actions.contains('view')}"
+                  class="action-icon-button"
+                  title="Ver Detalles"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button
+                  th:if="${actions.contains('edit')}"
+                  class="action-icon-button"
+                  title="Editar"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button
+                  th:if="${actions.contains('delete')}"
+                  class="action-icon-button"
+                  title="Eliminar"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+                <button
+                  class="action-icon-button more-options"
+                  title="Más opciones"
+                >
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+              </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(rows)}">
+              <td th:colspan="${headers.size() + 2}">
+                No hay datos para mostrar.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

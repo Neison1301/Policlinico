@@ -1,0 +1,35 @@
+/* src/main/resources/static/css/main-dashboard.css */
+
+/* Reset básico si no está en otro lugar o para asegurar */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Asegura que html y body ocupen toda la altura */
+}
+
+/* El wrapper será el contenedor principal con flexbox */
+.wrapper {
+    display: flex; /* Activa Flexbox */
+    min-height: 100vh; /* Asegura que el wrapper ocupe al menos la altura de la ventana */
+    width: 100%; /* Ocupa el 100% del ancho */
+    /* overflow: hidden; /* Opcional: previene barras de desplazamiento no deseadas si los hijos desbordan */
+}
+
+/* El área de contenido de la tabla debe ocupar el espacio restante */
+.table-content-area {
+    flex-grow: 1; /* Permite que este elemento crezca y ocupe todo el espacio disponible */
+    padding: 20px; /* Añade un padding alrededor de tu contenido de tabla */
+    box-sizing: border-box; /* Incluye el padding en el ancho/alto total */
+    margin-left: 250px; /* **¡Esta es la clave!** Desplaza el contenido a la derecha del sidebar fijo.
+                         Asegúrate de que este valor coincida EXACTAMENTE con el 'width' de tu .sidebar (que es 250px). */
+    overflow-y: auto; /* Permite el scroll vertical si el contenido es muy largo */
+    background-color: #e9ecef; /* El mismo color de fondo que el body para una transición suave */
+}
+
+/* Si tienes un helpbox fijo a la derecha, también necesitarías desplazar el .table-content-area
+   con un margin-right si el helpbox es fijo y está al mismo nivel que table-content-area
+   dentro del wrapper. Si el helpbox es un fragmento que se inserta de forma fija fuera del flujo
+   principal del wrapper, no sería necesario.
+   Revisando tu HTML, el helpbox está dentro del wrapper, por lo que podría necesitar ser un item flex
+   o su ancho restado si es fijo. Por ahora, nos enfocamos en el sidebar.
+*/

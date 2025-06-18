@@ -162,11 +162,11 @@ body {
   margin-bottom: 15px;
 }
 
-/* Ajuste del contenido principal para dejar espacio al sidebar */
+/* Ajuste del contenido principal para dejar espacio al sidebar 
 .main-content h2 {
   margin-left: 250px;
   width: calc(100% - 250px);
   padding: 20px;
   min-height: 100vh;
   overflow-y: auto;
-}
+}*/

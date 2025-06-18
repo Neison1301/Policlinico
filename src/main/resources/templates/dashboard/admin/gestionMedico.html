@@ -23,6 +23,10 @@
         th:replace="~{fragments/sidebar :: sidebar (${tipoPerfil}, ${currentUri})}"
       ></div>
 
+      <div>
+        <div th:replace="~{fragments/helpbox :: helpbox}"></div>
+      </div>
+
       <div class="table-content-area">
         <div
           th:replace="~{fragments/tableFragment :: dynamicTable(
