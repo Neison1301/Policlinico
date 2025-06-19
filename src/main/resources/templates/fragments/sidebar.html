@@ -40,12 +40,6 @@
                         Administración del Sistema
                     </a>
                 </li>
-                <li th:classappend="${currentUri.startsWith('/admin/informes-estadisticas')} ? 'active'">
-                    <a href="/admin/informes-estadisticas">
-                        <i class="fas fa-chart-line icon"></i>
-                        Informes y Estadísticas
-                    </a>
-                </li>
             </ul>
 
             <ul th:if="${tipoPerfil == 'PACIENTE'}">

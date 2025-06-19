@@ -29,4 +29,6 @@ public class UsuarioSistema {
 
     @Column(name = "rolNombre", nullable = false)
     private String rolNombre;
+    @Column(name = "estado", nullable = false, length = 20)
+    private String estado = "activo"; 
 }

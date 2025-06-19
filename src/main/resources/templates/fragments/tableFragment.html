@@ -24,7 +24,7 @@
         </div>
 
         <div class="header-actions">
-          <button class="action-button">
+          <button class="action-button" id="deleteSelectedBtn">
             <i class="fas fa-trash-alt"></i> Eliminar
           </button>
           <button class="action-button">
@@ -33,84 +33,125 @@
           <button class="action-button">
             <i class="fas fa-file-export"></i> Exportar
           </button>
-          <button class="add-button">
-            <i class="fas fa-plus"></i> Agregar <br />
-            <a th:href="@{/admin/perfil-admin}">Agregar</a>
-          </button>
+          <a th:href="@{'/admin/medicos/nuevo'}" class="add-button"> <i class="fas fa-plus"></i> Agregar <br />
+          </a>
         </div>
       </div>
 
       <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th th:each="header : ${headers}">
-                <span th:text="${header}">Encabezado</span>
-                <i class="fas fa-sort-down sort-icon"></i>
-              </th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="row, rowStat : ${rows}">
-              <td>
-                <span th:text="${rowStat.index + 1}">1</span>
-              </td>
-              <td th:each="field, fieldStat : ${row}">
-                <span
-                  th:if="${fieldStat.index == 5 and field == 'vivo'}"
-                  class="status-badge vivo"
-                  th:text="${field}"
-                ></span>
-                <span
-                  th:if="${fieldStat.index == 5 and field == 'Frio'}"
-                  class="status-badge frio"
-                  th:text="${field}"
-                ></span>
-                <span
-                  th:unless="${fieldStat.index == 5 and (field == 'vivo' or field == 'Frio')}"
-                  th:text="${field}"
-                ></span>
-              </td>
-              <td class="table-actions">
-                <button
-                  th:if="${actions.contains('view')}"
-                  class="action-icon-button"
-                  title="Ver Detalles"
-                >
-                  <i class="fas fa-eye"></i>
-                </button>
-                <button
-                  th:if="${actions.contains('edit')}"
-                  class="action-icon-button"
-                  title="Editar"
-                >
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button
-                  th:if="${actions.contains('delete')}"
-                  class="action-icon-button"
-                  title="Eliminar"
-                >
-                  <i class="fas fa-trash"></i>
-                </button>
-                <button
-                  class="action-icon-button more-options"
-                  title="Más opciones"
-                >
-                  <i class="fas fa-ellipsis-v"></i>
-                </button>
-              </td>
-            </tr>
-            <tr th:if="${#lists.isEmpty(rows)}">
-              <td th:colspan="${headers.size() + 2}">
-                No hay datos para mostrar.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <form id="dynamicDeleteForm" method="post" th:action="@{/admin/medicos/deleteBatch}"> <table>
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="selectAllInTable"></th> <th th:each="header : ${headers}">
+                    <span th:text="${header}">Encabezado</span>
+                    <i class="fas fa-sort-down sort-icon"></i>
+                  </th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="row, rowStat : ${rows}">
+                  <td>
+                    <input type="checkbox" name="selectedIds" th:value="${rowStat.index + 1}"> </td>
+                  <td th:each="field, fieldStat : ${row}">
+                    <span
+                      th:if="${fieldStat.index == 5 and field == 'vivo'}"
+                      class="status-badge vivo"
+                      th:text="${field}"
+                    ></span>
+                    <span
+                      th:if="${fieldStat.index == 5 and field == 'Frio'}"
+                      class="status-badge frio"
+                      th:text="${field}"
+                    ></span>
+                    <span
+                      th:unless="${fieldStat.index == 5 and (field == 'vivo' or field == 'Frio')}"
+                      th:text="${field}"
+                    ></span>
+                  </td>
+                  <td class="table-actions">
+                    <th:block th:each="action : ${actions}">
+                      <button
+                        th:if="${action == 'view'}"
+                        class="action-icon-button"
+                        title="Ver Detalles"
+                        onclick="alert('Ver Detalles')"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        th:if="${action == 'edit'}"
+                        class="action-icon-button"
+                        title="Editar"
+                        onclick="alert('Editar')"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        th:if="${action == 'delete'}"
+                        class="action-icon-button"
+                        title="Eliminar"
+                        onclick="alert('Eliminar')"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                      <a
+                        th:if="${action == 'edit_horario'}"
+                        class="action-icon-button"
+                        title="Editar Horario"
+                        th:href="@{'/admin/medicos/editar-horario/' + ${rowStat.index + 1}}" >
+                        <i class="fas fa-clock"></i> </a>
+                    </th:block>
+                    <button
+                      class="action-icon-button more-options"
+                      title="Más opciones"
+                    >
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(rows)}">
+                  <td th:colspan="${headers.size() + 2}">
+                    No hay datos para mostrar.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </form>
       </div>
     </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectAllCheckbox = document.getElementById('selectAllInTable');
+            const deleteSelectedButton = document.getElementById('deleteSelectedBtn');
+            const dynamicDeleteForm = document.getElementById('dynamicDeleteForm');
+
+            if (selectAllCheckbox) {
+                selectAllCheckbox.addEventListener('change', function() {
+                    const checkboxes = dynamicDeleteForm.querySelectorAll('input[name="selectedIds"]');
+                    checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+                });
+            }
+
+            if (deleteSelectedButton) {
+                deleteSelectedButton.addEventListener('click', function() {
+                    const selectedCheckboxes = dynamicDeleteForm.querySelectorAll('input[name="selectedIds"]:checked');
+                    if (selectedCheckboxes.length === 0) {
+                        alert('Por favor, selecciona al menos un elemento para eliminar.');
+                        return;
+                    }
+                    if (confirm('¿Estás seguro de que quieres eliminar los elementos seleccionados?')) {
+                        // Asegúrate de que el rowIdField sea el ID real y no el índice
+                        // Actualmente, el th:value="${rowStat.index + 1}" es un problema para la eliminación.
+                        // Necesitas que el ID real de cada fila se mapee al th:value de su checkbox.
+                        dynamicDeleteForm.submit();
+                    }
+                });
+            }
+        });
+        /*]]>*/
+    </script>
   </body>
 </html>

@@ -32,7 +32,7 @@ public class RedireccionController {
 
         switch (rol) {
             case "ROLE_ADMIN":
-                return "redirect:/admin/dashboard";
+                return "redirect:/admin/gestion-pacientes";
             case "ROLE_PACIENTE":
                 return "redirect:/paciente/inicio";
             case "ROLE_RECEPCIONISTA":
@@ -41,18 +41,6 @@ public class RedireccionController {
                 return "redirect:/login?error";
         }
     }
-///////////////////////////////////////////////////////////////////////////////
-
-    // NOTA: Es mejor tener un AdminController separado para todas las rutas /admin/**
-    // para mantener la separación de responsabilidades.
-    // Pero si quieres mantenerlo aquí por simplicidad inicial, es posible.
-    // He agregado los GetMapping para cada sección.
-
-   
- 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /** Muestra el dashboard del administrador. */
     
 
     /** Muestra la página de inicio del paciente. */
@@ -64,8 +52,6 @@ public class RedireccionController {
             model.addAttribute("tipoPerfil", tipoPerfil);
         });
         model.addAttribute("currentUri", request.getRequestURI());
-        // ¡CAMBIO AQUÍ! Apunta al archivo inicio.html dentro de la carpeta 'paciente'
-
         return "dashboard/paciente/inicio"; //
     }
 
@@ -78,7 +64,7 @@ public class RedireccionController {
             model.addAttribute("tipoPerfil", tipoPerfil);
         });
         model.addAttribute("currentUri", request.getRequestURI());
-        // ¡CAMBIO AQUÍ! Apunta al archivo inicio.html dentro de la carpeta
+        // CAMBIO AQUÍ Apunta al archivo inicio.html dentro de la carpeta
         // 'recepcionista'
         return "dashboard/recepcionista/inicio"; //
     }
