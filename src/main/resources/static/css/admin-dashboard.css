@@ -209,6 +209,33 @@ body {
 .overlay.active {
   display: block; /* Visible cuando el sidebar está activo */
 }
+.areac { 
+  flex-grow: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-left: 150px; /* Desplaza el contenido a la derecha del sidebar fijo */
+  overflow-y: auto; /* Permite el scroll vertical si el contenido es muy largo */
+  background-color: #e9ecef; /* Color de fondo para el área de contenido */
+  transition: margin-left 0.3s ease-in-out; /* Transición para el margen */
+  width: calc(100% - 250px); /* Asegura que no haya scroll horizontal excesivo */
+  display: flex; /* Añadido para que los elementos dentro se organicen en columna */
+  flex-direction: column;
+  min-height: 80vh; /* Para que ocupe toda la altura visible */
+}
+
+.profile-card {
+  background-color: #fff; /* Fondo blanco */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  margin: 20px 30px; /* Margen superior e inferior, y a los lados */
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Espacio entre secciones de la tarjeta */
+    min-height: 80vh; /* Para que ocupe toda la altura visible */
+
+}
+
 
 /* --- MEDIA QUERIES para Responsividad --- */
 
@@ -256,13 +283,8 @@ body {
     padding-top: AUTO; /* Ajusta esto si tu sidebar es de ancho fijo o fluido */
     background-color: #f8f9fa; /* Color de fondo similar a la imagen */
     min-height: 100vh; /* Para que ocupe toda la altura visible */
-      position: relative;
+}
 
-}
-#tableb {
-  position: relative;
-   top: 220px;
-}
 
 /* Header principal del contenido, encima de la tabla */
 .table-content-header {
@@ -343,3 +365,9 @@ body {
         font-size: 12px;
     }
 }
+
+
+
+
+
+

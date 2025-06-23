@@ -2,25 +2,70 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
   <head>
     <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}" />
+    <link rel="stylesheet" th:href="@{/css/perfil.css}" />
+
     <link rel="stylesheet" href="/css/sidebar.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
+
   <body>
-    <div class="wrapper">
+    <div></div>
+    <div class="main-container">
+      <button class="menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
       <div
         th:replace="~{fragments/sidebar :: sidebar (${tipoPerfil}, ${currentUri})}"
       ></div>
     </div>
 
-    <div th:fragment="content">
-      <h2>Bienvenido [ADMIN]</h2>
-      <p>Inicio > Perfil</p>
+    <div th:fragment="contenido-principal" class="table-content-area">
+      <div class="table-content-header">
+        <div class="header-title">
+          <h1>
+            <span th:text="${title}"
+              >Bienvenido
+              <input
+                type="text"
+                th:value="${usuarioSistema.usuUsuario}"
+                readonly
+                class="read-only-input"
+              />
+            </span>
+          </h1>
+          <p class="welcome-message">
+  Bienvenido <span class="username" th:text="${usuarioSistema.usuUsuario}">Nombre de Usuario</span>
+</p>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" aria-label="Abrir mensajes">
+            <i class="fas fa-envelope"></i>
+          </button>
+          <button class="icon-btn" aria-label="Abrir notificaciones">
+            <i class="fas fa-bell"></i>
+          </button>
+          <a
+            th:href="@{/admin/perfil-admin}"
+            class="icon-button"
+            aria-label="Abrir perfil"
+          >
+            <i class="fas fa-user"></i>
+          </a>
+        </div>
+      </div>
 
       <div class="profile-card">
         <div class="profile-header-info">
           <img
             th:src="@{/image/tyrone.jpg}"
             alt="Foto de Perfil"
-            class="profile-picture"
+            class="profile-pic"
           />
           <h3 th:text="${usuarioSistema.usuUsuario}">Nombre de Usuario</h3>
           <p th:text="${perfilUsuario.PERF_TipoPerfil}"></p>
@@ -33,6 +78,7 @@
               type="text"
               th:value="${usuarioSistema.usuUsuario}"
               readonly
+              class="read-only-field"
             />
           </div>
           <div class="form-group">
@@ -41,6 +87,7 @@
               type="text"
               th:value="${usuarioSistema.rolNombre.replace('ROLE_', '')}"
               readonly
+              class="read-only-field"
             />
           </div>
           <div class="form-group">
@@ -49,14 +96,21 @@
               type="text"
               th:value="${perfilUsuario.PERF_TipoPerfil}"
               readonly
+              class="read-only-field"
             />
           </div>
           <div class="form-group">
             <label>Contraseña</label>
-            <input type="password" value="********" readonly />
+            <input
+              type="password"
+              value="********"
+              readonly
+              class="read-only-field"
+            />
           </div>
         </div>
       </div>
     </div>
+    <script th:src="@{/js/sidebar.js}"></script>
   </body>
 </html>

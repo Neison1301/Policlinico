@@ -14,6 +14,8 @@
     <meta name="page-title" th:content="${title}" />
     <title>Administrador - <span th:text="${tableTitle}"></span></title>
     <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}" />
+    <link rel="stylesheet" th:href="@{/css/perfil.css}" />
+
     <link rel="stylesheet" href="/css/sidebar.css" />
     <link rel="stylesheet" th:href="@{/css/table.css}" />
 
@@ -36,7 +38,7 @@
       ></div>
 
       <div class="table-content-area">
-         <div class="table-content-header">
+        <div class="table-content-header">
           <div class="header-title">
             <h1><span th:text="${title}">Pacientes en el sistema</span></h1>
             <p>Pacientes agendados</p>
@@ -48,9 +50,13 @@
             <button class="icon-button" aria-label="Abrir notificaciones">
               <i class="fas fa-bell"></i>
             </button>
-            <button class="icon-button" aria-label="Abrir perfil">
+            <a
+              th:href="@{/admin/perfil-admin}"
+              class="icon-button"
+              aria-label="Abrir perfil"
+            >
               <i class="fas fa-user"></i>
-            </button>
+            </a>
           </div>
         </div>
         <div
@@ -66,7 +72,6 @@
       </div>
     </div>
     <script th:src="@{/js/main.js}"></script>
-        <script th:src="@{/js/sidebar.js}"></script>
-
+    <script th:src="@{/js/sidebar.js}"></script>
   </body>
 </html>
