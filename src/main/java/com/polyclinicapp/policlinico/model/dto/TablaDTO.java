@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TablaDTO {
     private String title;
-    private List<String> headers; // Para los encabezados visibles en la tabla (ej. "Nombre de Usuario")
-    private List<String> columnKeys; // NUEVO: Para las claves internas de cada columna en el mapa (ej. "nombreDeUsuario")
+    private List<String> headers; 
+    private List<String> columnKeys; 
     private List<Map<String, Object>> rows;
     private String rowIdField;
     private List<String> actions;

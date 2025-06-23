@@ -1,6 +1,7 @@
 package com.polyclinicapp.policlinico.service.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
@@ -67,4 +68,46 @@ public class ServicioPacienteImpl implements IServicioPaciente {
     public List<Paciente> findAllPacientes() {
         return repositorioPaciente.findAll();
     }
+
+    @Override
+    public void eliminarPacientePorId(Long id) {
+        // Buenas prácticas:
+        // 1. Verificar si el paciente existe antes de intentar borrar.
+        // Esto proporciona un mensaje de error más claro si el ID no es válido.
+        if (!repositorioPaciente.existsById(id)) {
+            throw new NoSuchElementException("Paciente con ID " + id + " no encontrado para eliminación.");
+        }
+        repositorioPaciente.deleteById(id);
+        // Opcional: Si quieres recuperar el paciente para alguna auditoría antes de
+        // borrarlo:
+        // Paciente pacienteAEliminar = repositorioPaciente.findById(id)
+        // .orElseThrow(() -> new NoSuchElementException("Paciente no encontrado"));
+        // repositorioPaciente.delete(pacienteAEliminar);
+    }
+
+    @Override
+    public void eliminarMultiplesPacientesPorIds(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            // Podrías lanzar una IllegalArgumentException o simplemente no hacer nada
+            throw new IllegalArgumentException("La lista de IDs para eliminar no puede ser nula o vacía.");
+        }
+        // JpaRepository tiene un método deleteAllById para eliminar por una colección
+        // de IDs.
+        // Esto es más eficiente que eliminarlos uno por uno.
+        repositorioPaciente.deleteAllById(ids);
+
+        // Si usaste el método @Query en el repositorio:
+        // repositorioPaciente.deleteAllByIdIn(ids);
+    }
+
+    // Opcional: Implementación de borrado lógico (si Paciente tiene un campo
+    // 'activo')
+    // @Override
+    // @Transactional
+    // public void desactivarPaciente(Long id) {
+    // Paciente paciente = repositorioPaciente.findById(id)
+    // .orElseThrow(() -> new NoSuchElementException("Paciente no encontrado."));
+    // paciente.setActivo(false); // Asumiendo un campo 'activo'
+    // repositorioPaciente.save(paciente);
+    // }
 }

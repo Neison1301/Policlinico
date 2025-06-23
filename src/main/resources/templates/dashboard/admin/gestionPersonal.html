@@ -7,34 +7,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
+    <meta name="row-id-field" th:content="${rowIdField}" />
+  <meta name="base-api-path" th:content="${baseApiPath}" />
+    <meta name="page-title" th:content="${title}" />
+
     <title>Administrador - <span th:text="${tableTitle}"></span></title>
     <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}" />
     <link rel="stylesheet" href="/css/sidebar.css" />
-    <link rel="stylesheet" th:href="@{/css/table.css}" /> 
+    <link rel="stylesheet" th:href="@{/css/table.css}" />
 
-    <script
-      src="https://kit.fontawesome.com/6e088a75e3.js"
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
       crossorigin="anonymous"
-    ></script>
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <div class="wrapper">
+            <button class="hamburger-menu">
+        <i class="fas fa-bars"></i>
+      </button>
       <div
         th:replace="~{fragments/sidebar :: sidebar (${tipoPerfil}, ${currentUri})}"
       ></div>
 
       <div class="table-content-area">
+         <div class="table-content-header">
+          <div class="header-title">
+            <h1><span th:text="${title}">Recepcionistas en el sistema</span></h1>
+            <p>Recepcionistas agendados</p>
+          </div>
+          <div class="header-actions">
+            <button class="icon-button" aria-label="Abrir mensajes">
+              <i class="fas fa-envelope"></i>
+            </button>
+            <button class="icon-button" aria-label="Abrir notificaciones">
+              <i class="fas fa-bell"></i>
+            </button>
+            <button class="icon-button" aria-label="Abrir perfil">
+              <i class="fas fa-user"></i>
+            </button>
+          </div>
+        </div>
         <div
           th:replace="~{fragments/tableFragment :: dynamicTable(
-                ${tableTitle},
-                ${tableHeaders},
-                ${tableRows},
-                ${tableRowIdField},
-                ${tableActions}
-            )}"
+            title=${title},
+            headers=${headers},
+            columnKeys=${columnKeys},
+            rows=${rows},
+            rowIdField=${rowIdField},
+            actions=${actions}
+          )}"
         ></div>
       </div>
-
     </div>
+    <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/sidebar.js}"></script>
+
   </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Collections;
 
@@ -33,6 +34,10 @@ public class UserDetailsServiceImpl implements UserDetailsService { // Implement
         UsuarioSistema usuarioSistema = repositorioUsuario.findByUsuUsuario(usuUsuario)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con DNI: " + usuUsuario));
 
+        if ("inactivo".equalsIgnoreCase(usuarioSistema.getEstado())) {
+            System.out.println("DEBUG: Intento de inicio de sesión de usuario inactivo: " + usuUsuario);
+            throw new DisabledException("La cuenta de usuario está inactiva y no puede iniciar sesión.");
+        }
         // Convierto mi UsuarioSistema a un UserDetails de Spring Security
         return new org.springframework.security.core.userdetails.User(
                 usuarioSistema.getUsuUsuario(), // El DNI será el nombre de usuario

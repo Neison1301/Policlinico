@@ -16,4 +16,10 @@ public interface IServicioPaciente {
         void registrarNuevoPaciente(RegistroPacienteDTO registroDTO) throws IllegalArgumentException;
         List<Paciente> findAllPacientes();
 
+           // Método para eliminar un paciente por su ID
+    void eliminarPacientePorId(Long id);
+
+    // Opcional: Método para eliminar múltiples pacientes por sus IDs
+    void eliminarMultiplesPacientesPorIds(List<Long> ids);
+
 }

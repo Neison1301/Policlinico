@@ -1,138 +1,182 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sidebar Fragment</title>
-    <link rel="stylesheet" href="/css/sidebar.css">
-<script src="https://kit.fontawesome.com/ce670df45b.js" crossorigin="anonymous"></script>
-</head>
-<body>
-
+    <link rel="stylesheet" href="/css/sidebar.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
     <div th:fragment="sidebar (tipoPerfil, currentUri)" class="sidebar">
-        <div class="sidebar-header">
-            <img th:src="@{/image/LogoEmpresa.png}" alt="Logo" class="app-logo">
-            <h2>Ara Ara</h2>
-        </div>
+      <button class="hamburger-menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="sidebar-header">
+        <img th:src="@{/image/LogoEmpresa.png}" alt="Logo" class="app-logo" />
+        <h2>Ara Ara</h2>
+      </div>
 
-        <nav class="sidebar-nav">
-            <ul th:if="${tipoPerfil == 'ADMIN'}"> <li th:classappend="${currentUri.startsWith('/admin/gestion-pacientes') or currentUri == '/admin/dashboard'} ? 'active'">
-                    <a href="/admin/gestion-pacientes">
-                        <i class="fas fa-user-injured icon"></i>
-                        Gestión de Pacientes
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/admin/gestion-medicos')} ? 'active'">
-                    <a href="/admin/gestion-medicos">
-                        <i class="fas fa-user-md icon"></i>
-                        Gestión de Médicos
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/admin/gestion-personal')} ? 'active'">
-                    <a href="/admin/gestion-personal">
-                        <i class="fas fa-users icon"></i>
-                        Gestión de Personal
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/admin/administracion-sistema')} ? 'active'">
-                    <a href="/admin/administracion-sistema">
-                        <i class="fas fa-cogs icon"></i>
-                        Administración del Sistema
-                    </a>
-                </li>
-            </ul>
-
-            <ul th:if="${tipoPerfil == 'PACIENTE'}">
-                <li th:classappend="${currentUri == '/paciente/inicio'} ? 'active'">
-                    <a href="/paciente/inicio">
-                        <i class="fas fa-home icon"></i>
-                        Inicio
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/paciente/mis-citas')} ? 'active'">
-                    <a href="/paciente/mis-citas">
-                        <i class="fas fa-calendar-alt icon"></i>
-                        Mis citas
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/paciente/mis-medicos')} ? 'active'">
-                    <a href="/paciente/mis-medicos">
-                        <i class="fas fa-user-md icon"></i>
-                        Mis Médicos
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/paciente/perfil')} ? 'active'">
-                    <a href="/paciente/perfil">
-                        <i class="fas fa-user icon"></i>
-                        Perfil
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/paciente/historial')} ? 'active'">
-                    <a href="/paciente/historial">
-                        <i class="fas fa-history icon"></i>
-                        Historial
-                    </a>
-                </li>
-            </ul>
-
-            <ul th:if="${tipoPerfil == 'RECEPCIONISTA'}">
-                <li th:classappend="${currentUri == '/recepcionista/inicio'} ? 'active'">
-                    <a href="/recepcionista/inicio">
-                        <i class="fas fa-home icon"></i>
-                        Inicio
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/recepcionista/citas')} ? 'active'">
-                    <a href="/recepcionista/citas">
-                        <i class="fas fa-calendar-check icon"></i>
-                        Citas
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/recepcionista/pacientes')} ? 'active'">
-                    <a href="/recepcionista/pacientes">
-                        <i class="fas fa-users icon"></i>
-                        Pacientes
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/recepcionista/medicos')} ? 'active'">
-                    <a href="/recepcionista/medicos">
-                        <i class="fas fa-user-md icon"></i>
-                        Médicos
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/recepcionista/perfil')} ? 'active'">
-                    <a href="/recepcionista/perfil">
-                        <i class="fas fa-user icon"></i>
-                        Perfil
-                    </a>
-                </li>
-                <li th:classappend="${currentUri.startsWith('/recepcionista/historial')} ? 'active'">
-                    <a href="/recepcionista/historial">
-                        <i class="fas fa-history icon"></i>
-                        Historial
-                    </a>
-                </li>
-            </ul>
-
-            <div class="separator"></div>
-
-            <ul>
-                <li>
-                    <a href="/logout">
-                        <i class="fas fa-sign-out-alt icon"></i>
-                        Cerrar Sesión
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="help-section">
-            <i class="fas fa-plus-circle help-icon"></i>
-            <h3 id="necesitasayuda">¿Necesitas ayuda?</h3> 
-            <a th:href="${tipoPerfil == 'ROLE_ADMIN' ? '/admin/soporte-tecnico' : (tipoPerfil == 'ROLE_RECEPCIONISTA' ? '/recepcionista/soporte-tecnico' : '/paciente/servicio-cliente')}" class="help-button">
-                <span th:text="${tipoPerfil == 'ROLE_ADMIN' ? 'Soporte Técnico' : (tipoPerfil == 'ROLE_RECEPCIONISTA' ? 'Soporte Técnico' : 'Servicio al Cliente')}"></span>
+      <nav class="sidebar-nav">
+        <ul th:if="${tipoPerfil == 'ADMIN'}">
+          <li
+            th:classappend="${currentUri.startsWith('/admin/gestion-pacientes') or currentUri == '/admin/dashboard'} ? 'active'"
+          >
+            <a href="/admin/gestion-pacientes">
+              <i class="fas fa-user-injured icon"></i>
+              Gestión de Pacientes
             </a>
-        </div>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/admin/gestion-medicos')} ? 'active'"
+          >
+            <a href="/admin/gestion-medicos">
+              <i class="fas fa-user-md icon"></i>
+              Gestión de Médicos
+            </a>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/admin/gestion-personal')} ? 'active'"
+          >
+            <a href="/admin/gestion-personal">
+              <i class="fas fa-users icon"></i>
+              Gestión de Personal
+            </a>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/admin/administracion-sistema')} ? 'active'"
+          >
+            <a href="/admin/administracion-sistema">
+              <i class="fas fa-cogs icon"></i>
+              Administración del Sistema
+            </a>
+          </li>
+        </ul>
+
+        <ul th:if="${tipoPerfil == 'PACIENTE'}">
+          <li th:classappend="${currentUri == '/paciente/inicio'} ? 'active'">
+            <a href="/paciente/inicio">
+              <i class="fas fa-home icon"></i>
+              Inicio
+            </a>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/paciente/mis-citas')} ? 'active'"
+          >
+            <a href="/paciente/mis-citas">
+              <i class="fas fa-calendar-alt icon"></i>
+              Mis citas
+            </a>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/paciente/mis-medicos')} ? 'active'"
+          >
+            <a href="/paciente/mis-medicos">
+              <i class="fas fa-user-md icon"></i>
+              Mis Médicos
+            </a>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/paciente/perfil')} ? 'active'"
+          >
+            <a href="/paciente/perfil">
+              <i class="fas fa-user icon"></i>
+              Perfil
+            </a>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/paciente/historial')} ? 'active'"
+          >
+            <a href="/paciente/historial">
+              <i class="fas fa-history icon"></i>
+              Historial
+            </a>
+          </li>
+        </ul>
+
+        <ul th:if="${tipoPerfil == 'RECEPCIONISTA'}">
+          <li
+            th:classappend="${currentUri == '/recepcionista/inicio'} ? 'active'"
+          >
+            <a href="/recepcionista/inicio">
+              <i class="fas fa-home icon"></i>
+              Inicio
+            </a>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/recepcionista/citas')} ? 'active'"
+          >
+            <a href="/recepcionista/citas">
+              <i class="fas fa-calendar-check icon"></i>
+              Citas
+            </a>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/recepcionista/pacientes')} ? 'active'"
+          >
+            <a href="/recepcionista/pacientes">
+              <i class="fas fa-users icon"></i>
+              Pacientes
+            </a>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/recepcionista/medicos')} ? 'active'"
+          >
+            <a href="/recepcionista/medicos">
+              <i class="fas fa-user-md icon"></i>
+              Médicos
+            </a>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/recepcionista/perfil')} ? 'active'"
+          >
+            <a href="/recepcionista/perfil">
+              <i class="fas fa-user icon"></i>
+              Perfil
+            </a>
+          </li>
+          <li
+            th:classappend="${currentUri.startsWith('/recepcionista/historial')} ? 'active'"
+          >
+            <a href="/recepcionista/historial">
+              <i class="fas fa-history icon"></i>
+              Historial
+            </a>
+          </li>
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul>
+          <li>
+            <a href="/logout">
+              <i class="fas fa-sign-out-alt icon"></i>
+              Cerrar Sesión
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="help-section">
+        <i class="fas fa-plus-circle help-icon"></i>
+        <h3 id="necesitasayuda">¿Necesitas ayuda?</h3>
+        <a
+          th:href="${tipoPerfil == 'ROLE_ADMIN' ? '/admin/soporte-tecnico' : (tipoPerfil == 'ROLE_RECEPCIONISTA' ? '/recepcionista/soporte-tecnico' : '/paciente/servicio-cliente')}"
+          class="help-button"
+        >
+          <span
+            th:text="${tipoPerfil == 'ROLE_ADMIN' ? 'Soporte Técnico' : (tipoPerfil == 'ROLE_RECEPCIONISTA' ? 'Soporte Técnico' : 'Servicio al Cliente')}"
+          ></span>
+        </a>
+      </div>
     </div>
-</body>
+
+    <script th:src="@{/js/sidebar.js}"></script>
+  </body>
 </html>

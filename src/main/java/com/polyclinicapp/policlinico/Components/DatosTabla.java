@@ -71,21 +71,22 @@ public class DatosTabla {
         return new TablaDTO(
                 "Médicos en el Sistema",
                 displayHeaders,
-                columnKeys, // Pasar las claves de las columnas
+                columnKeys, 
                 rowsAsMaps,
                 "id",
                 Arrays.asList("view", "edit", "delete", "edit_horario"));
     }
 
     public TablaDTO prepareRecepcionistasTableData(List<UsuarioSistema> recepcionistas) {
-        List<String> displayHeaders = Arrays.asList("Usuario", "Rol");
-        List<String> columnKeys = Arrays.asList("usuario", "rol"); // Claves del mapa para recepcionistas
+        List<String> displayHeaders = Arrays.asList("Usuario", "Rol", "Estado"); // Añadir "Estado" aquí
+        List<String> columnKeys = Arrays.asList("usuario", "rol", "estado"); // Añadir "estado" aquí
 
         List<Map<String, Object>> rowsAsMaps = new ArrayList<>();
         for (UsuarioSistema u : recepcionistas) {
             Map<String, Object> rowMap = new LinkedHashMap<>();
             rowMap.put("id", u.getUsuId());
             rowMap.put("usuario", u.getUsuUsuario());
+            rowMap.put("estado", u.getEstado());
             rowMap.put("rol", u.getRolNombre().replace("ROLE_", "")); // Limpiar el prefijo ROLE_ para mostrar
             rowsAsMaps.add(rowMap);
         }
@@ -100,13 +101,13 @@ public class DatosTabla {
     }
 
     // Este método ya no es un fragmento dinámico. Ahora se encarga de añadir los atributos al modelo.
-    public void addTableDataToModel(Model model, TablaDTO tableData) {
-        model.addAttribute("tableTitle", tableData.getTitle());
-        model.addAttribute("tableHeaders", tableData.getHeaders());
-        model.addAttribute("tableColumnKeys", tableData.getColumnKeys()); // Añadir las claves de las columnas al modelo
-        model.addAttribute("tableRows", tableData.getRows());
-        model.addAttribute("tableRowIdField", tableData.getRowIdField());
-        model.addAttribute("tableActions", tableData.getActions());
+  public void addTableDataToModel(Model model, TablaDTO tableData) {
+        model.addAttribute("title", tableData.getTitle()); // Cambiado de "tableTitle" a "title"
+        model.addAttribute("headers", tableData.getHeaders()); // Cambiado de "tableHeaders" a "headers"
+        model.addAttribute("columnKeys", tableData.getColumnKeys()); // Cambiado de "tableColumnKeys" a "columnKeys"
+        model.addAttribute("rows", tableData.getRows()); // Cambiado de "tableRows" a "rows"
+        model.addAttribute("rowIdField", tableData.getRowIdField()); // Cambiado de "tableRowIdField" a "rowIdField"
+        model.addAttribute("actions", tableData.getActions()); // Cambiado de "tableActions" a "actions"
     }
 
     public void setCommonAdminModelAttributes(Authentication auth, Model model, HttpServletRequest request,
@@ -119,8 +120,6 @@ public class DatosTabla {
         model.addAttribute("currentUri", request.getRequestURI());
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("headerTitle", headerTitle);
-        // contentFragment ya no se usa directamente para cargar el fragmento th:replace,
-        // se asume que la vista lo sabe. Si aún lo necesitas, puedes añadirlo.
-        // model.addAttribute("contentFragment", contentFragment);
+
     }
 }

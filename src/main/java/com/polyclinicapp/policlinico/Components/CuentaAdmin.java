@@ -17,28 +17,29 @@ public class CuentaAdmin implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Crea 'admin' si no existe.
+
         if (usuarioSistemaService.findByUsuUsuario("admin").isEmpty()) {
             usuarioSistemaService.registerNewUser(
                     "admin",
-                    "admin123", // Contraseña inicial.
-                    "ADMIN", // Rol del administrador.
+                    "admin123",
+
+                    "ADMIN",
+
                     "Administrador del Sistema");
-            System.out.println("Administrador predeterminado 'admin' creado.");
+            System.out.println("Administrador  creado.");
         } else {
             System.out.println("El usuario administrador 'admin' ya existe.");
         }
 
-        // Crea 'recepcionista1' si no existe.
         if (usuarioSistemaService.findByUsuUsuario("recepcionista1").isEmpty()) {
             usuarioSistemaService.registerNewUser(
                     "recepcionista1",
                     "recepcionista123", // Contraseña inicial.
                     "RECEPCIONISTA", // Rol del recepcionista.
                     "Recepcionista");
-            System.out.println("Usuario recepcionista 'recepcionista1' creado.");
+            System.out.println("Usuario creado.");
         } else {
-            System.out.println("El usuario recepcionista 'recepcionista1' ya existe.");
+            System.out.println("El usuario  'recepcionista1' ya existe.");
         }
 
         // las contraseñas se encriptan en servicioUsuarioSistema, por lo que no es

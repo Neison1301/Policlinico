@@ -1,5 +1,5 @@
 package com.polyclinicapp.policlinico.controller;
 
-public class ReceptionistController {
+public class RecepcionistaController {
     
 }

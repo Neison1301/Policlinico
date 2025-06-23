@@ -11,17 +11,23 @@
     <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}" />
     <link rel="stylesheet" href="/css/sidebar.css" />
     <link rel="stylesheet" th:href="@{/css/table.css}" /> 
-
-    <script
-      src="https://kit.fontawesome.com/6e088a75e3.js"
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
       crossorigin="anonymous"
-    ></script>
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <div class="wrapper">
+            <button class="hamburger-menu">
+        <i class="fas fa-bars"></i>
+      </button>
       <div
         th:replace="~{fragments/sidebar :: sidebar (${tipoPerfil}, ${currentUri})}"
       ></div>
+    <script th:src="@{/js/sidebar.js}"></script>
 
     </div>
   </body>

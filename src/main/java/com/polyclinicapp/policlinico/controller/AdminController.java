@@ -40,9 +40,10 @@ public class AdminController {
     public String gestionPacientes(Authentication auth, Model model, HttpServletRequest request) {
         datosTabla.setCommonAdminModelAttributes(auth, model, request, "Pacientes en el Sistema",
                 "Gestion de Pacientes", "");
-
+        model.addAttribute("baseApiPath", "pacientes");
         List<Paciente> pacientes = servicioPaciente.findAllPacientes();
-        TablaDTO datosPacientes = datosTabla.preparePacientesTableData(pacientes); // Este método ya define actions y rowIdField
+        TablaDTO datosPacientes = datosTabla.preparePacientesTableData(pacientes); // Este método ya define actions y
+                                                                                   // rowIdField
         datosTabla.addTableDataToModel(model, datosPacientes); // Esto añade TODOS los atributos de TablaDTO al modelo
 
         return "dashboard/admin/gestionPaciente";
@@ -50,10 +51,12 @@ public class AdminController {
 
     @GetMapping("gestion-medicos")
     public String gestionMedicos(Authentication auth, Model model, HttpServletRequest request) {
-        datosTabla.setCommonAdminModelAttributes(auth, model, request, "Médicos en el Sistema", "Gestión de Médicos", "");
-
+        datosTabla.setCommonAdminModelAttributes(auth, model, request, "Médicos en el Sistema", "Gestión de Médicos",
+                "");
+        model.addAttribute("baseApiPath", "medicos");
         List<MedicoDTO> medicosDTO = servicioMedico.findAllMedicos();
-        TablaDTO medicosTableData = datosTabla.prepareMedicosTableData(medicosDTO); // Este método ya define actions y rowIdField
+        TablaDTO medicosTableData = datosTabla.prepareMedicosTableData(medicosDTO); // Este método ya define actions y
+                                                                                    // rowIdField
         datosTabla.addTableDataToModel(model, medicosTableData); // Esto añade TODOS los atributos de TablaDTO al modelo
 
         return "dashboard/admin/gestionMedico";
@@ -61,7 +64,7 @@ public class AdminController {
 
     @GetMapping("/medicos/editar-horario/{id}")
     public String editarHorarioMedico(@PathVariable("id") Long id, Model model, Authentication auth,
-                                      HttpServletRequest request) {
+            HttpServletRequest request) {
         Optional<MedicoDTO> medicoOptional = servicioMedico.findMedicoById(id);
 
         if (medicoOptional.isEmpty()) {
@@ -81,14 +84,17 @@ public class AdminController {
     public String gestionRecepcionistas(Authentication auth, Model model, HttpServletRequest request) {
         datosTabla.setCommonAdminModelAttributes(auth, model, request, "Gestión de Recepcionistas",
                 "Gestión de Recepcionistas", "");
-
+        model.addAttribute("baseApiPath", "usuarios");
         List<UsuarioSistema> todosLosUsuarios = usuarioSistemaService.findAllUsuarios();
         List<UsuarioSistema> recepcionistas = todosLosUsuarios.stream()
                 .filter(u -> u.getRolNombre().equals("RECEPCIONISTA"))
                 .collect(Collectors.toList());
 
-        TablaDTO recepcionistasTableData = datosTabla.prepareRecepcionistasTableData(recepcionistas); // Este método ya define actions y rowIdField
-        datosTabla.addTableDataToModel(model, recepcionistasTableData); // Esto añade TODOS los atributos de TablaDTO al modelo
+        TablaDTO recepcionistasTableData = datosTabla.prepareRecepcionistasTableData(recepcionistas); // Este método ya
+                                                                                                      // define actions
+                                                                                                      // y rowIdField
+        datosTabla.addTableDataToModel(model, recepcionistasTableData); // Esto añade TODOS los atributos de TablaDTO al
+                                                                        // modelo
 
         return "dashboard/admin/gestionPersonal";
     }
@@ -116,16 +122,18 @@ public class AdminController {
                 "");
 
         List<UsuarioSistema> todosLosUsuarios = usuarioSistemaService.findAllUsuarios();
+        model.addAttribute("baseApiPath", "usuarios");
 
+        // Aquí puedes definir las acciones que quieres permitir en la tabla de usuarios
         // Headers visibles para la tabla de usuarios
-        List<String> displayHeaders = Arrays.asList("ID", "Nombre de Usuario", "Rol");
-        // Claves de los campos en el mapa, en el mismo orden que los headers para el fragmento
-        List<String> columnKeys = Arrays.asList("id", "usuario", "rol");
+        List<String> displayHeaders = Arrays.asList("Usuario", "Rol", "Estado"); // Añadir "Estado" aquí
+        List<String> columnKeys = Arrays.asList("usuario", "rol", "estado"); // Añadir "estado" aquí
 
         List<Map<String, Object>> usuariosRowsAsMaps = todosLosUsuarios.stream().map(u -> {
             Map<String, Object> rowMap = new LinkedHashMap<>();
             rowMap.put("id", u.getUsuId());
             rowMap.put("usuario", u.getUsuUsuario());
+            rowMap.put("estado", u.getEstado()); // Agregar el estado del usuario
             rowMap.put("rol", u.getRolNombre().replace("ROLE_", "")); // Quitar prefijo ROLE_ para mostrar
             return rowMap;
         }).collect(Collectors.toList());
@@ -136,8 +144,7 @@ public class AdminController {
                 columnKeys, // Pasar las claves de las columnas
                 usuariosRowsAsMaps,
                 "id", // La clave para obtener el ID de la fila en el mapa
-                Arrays.asList("view", "edit", "delete")
-        );
+                Arrays.asList("view", "edit", "delete"));
         datosTabla.addTableDataToModel(model, datosUsuariosSistema);
 
         return "dashboard/admin/administracion-sistema";

@@ -11,7 +11,5 @@ import java.util.Optional;
 public interface RepositorioPaciente extends JpaRepository<Paciente, Long> { // Extiende JpaRepository<Paciente, Long>
     Optional<Paciente> findByPacCorreo(String correoElectronico);
     Optional<Paciente> findByPacDni(String numeroDocumento);  
-    // buscar pacientes por el ID de su UsuarioSistema asociado:
-
     Optional<Paciente> findByUsuarioSistemaUsuId(Long usuId);
 }

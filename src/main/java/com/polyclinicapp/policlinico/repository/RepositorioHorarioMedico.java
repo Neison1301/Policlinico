@@ -11,9 +11,8 @@ import java.util.List;
 
 @Repository
 public interface RepositorioHorarioMedico extends JpaRepository<HorarioMedico, Long> {
-    // Encuentra todos los horarios para un ID de médico específico
-    // Usa esta nueva forma con @Query
-    List<HorarioMedico> findByMedico_MedicoId(Long medicoId); // <--- ¡Así es el cambio!
 
-    void deleteByMedico(Medico medico); // Este método ya estaba, asegúrate de que el parámetro sea Medico
+    List<HorarioMedico> findByMedico_MedicoId(Long medicoId); 
+
+    void deleteByMedico(Medico medico);
 }
